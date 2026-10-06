@@ -300,9 +300,13 @@ textarea.edt{font-weight:500;color:var(--ink)}
 .whosel{width:auto;padding:4px 10px;font-size:13.5px;font-weight:600}
 .gcal{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:5px 13px 5px 10px;border:1px solid var(--line2);border-radius:99px;background:var(--paper);color:var(--req);font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:border-color .2s ease,transform .2s ease}
 .gcal:hover{border-color:var(--req);transform:translateY(-1px)}
-.gcal svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.gcal svg{flex:none;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
 .resp .gcal{margin-top:0}
-td .gcal{margin-top:8px;font-size:12px}
+td.stc{width:180px;min-width:180px}
+.calrow td.pj{white-space:normal;min-width:120px}
+.calrow td.ch{min-width:220px!important}
+.stcol{display:flex;flex-direction:column;align-items:center;gap:10px}
+td .gcal{margin:0;display:flex;justify-content:center;width:100%;max-width:180px;white-space:normal;text-align:center;line-height:1.25;font-size:12.5px;padding:7px 12px}
 </style>
 </head>
 <body>
@@ -546,7 +550,7 @@ pages.push({id:"calendario", ch:"Gestão", t:"Calendário completo", html:()=>`
   <div class="filters" data-f="s"><span class="lbl">Status</span>${["Todos",...ST.map(s=>s[0])].map((m,i)=>`<button type="button" data-v="${m}" aria-pressed="${i===0}">${m}</button>`).join("")}</div>
   <div class="filters people" data-f="p"><span class="lbl">Projeto</span>${["Todos",...D.projs.map(p=>p.n)].map((m,i)=>`<button type="button" data-v="${i-1}" aria-pressed="${i===0}">${esc(m.replace("Residencial ",""))}</button>`).join("")}</div>
   <p class="small" id="calN"></p>
-  <div class="scroll"><table><thead><tr><th>Data</th><th>Empreendimento</th><th>Formato</th><th>Tema e chamada</th><th>Status</th></tr></thead><tbody id="calB"></tbody></table></div>`});
+  <div class="scroll"><table><thead><tr><th>Data</th><th>Empreendimento</th><th>Formato</th><th>Tema e chamada</th><th class="c">Status</th></tr></thead><tbody id="calB"></tbody></table></div>`});
 
 pages.push({id:"validar", ch:"Gestão", t:"Pontos a validar", html:()=>{
   const flagged = D.rows.filter(r=>r.o);
@@ -590,7 +594,7 @@ function renderCal(){
   const B = document.getElementById("calB"); if (!B) return;
   const rows = D.rows.filter(r=>(flt.m==="Todos"||r.m===flt.m)&&(flt.f==="Todos"||r.f===flt.f)&&(flt.s==="Todos"||stOf(r.id)===flt.s)&&(flt.p==="-1"||r.p===+flt.p));
   document.getElementById("calN").textContent = `${rows.length} ${rows.length===1?"peça":"peças"} no filtro atual.`;
-  B.innerHTML = rows.length ? rows.map(r=>{const d=pd(r.d);return `<tr class="calrow"><td class="num">${fmtD(r.d)}<br><span class="small">${DIAS[d.getDay()]}</span></td><td class="pj">${esc(D.projs[r.p].n)}</td><td><span class="fmt ${r.f}">${r.f}</span></td><td class="ch">${canWrite?`<span class="edl">Tema</span>${E(r.id+".t", r.t, "box")}<span class="edl">Chamada</span>${E(r.id+".c", r.c, "box")}${edited(r)?`<span class="edtag">Editado · <button type="button" class="lnk" data-reset="${r.id}">voltar ao original</button></span>`:""}`:`${esc(T(r))}<br><span class="small">${esc(CH(r))}</span>`}</td><td>${selHTML(r.id)}<br>${gcalTr(r)}</td></tr>`}).join("")
+  B.innerHTML = rows.length ? rows.map(r=>{const d=pd(r.d);return `<tr class="calrow"><td class="num">${fmtD(r.d)}<br><span class="small">${DIAS[d.getDay()]}</span></td><td class="pj">${esc(D.projs[r.p].n)}</td><td><span class="fmt ${r.f}">${r.f}</span></td><td class="ch">${canWrite?`<span class="edl">Tema</span>${E(r.id+".t", r.t, "box")}<span class="edl">Chamada</span>${E(r.id+".c", r.c, "box")}${edited(r)?`<span class="edtag">Editado · <button type="button" class="lnk" data-reset="${r.id}">voltar ao original</button></span>`:""}`:`${esc(T(r))}<br><span class="small">${esc(CH(r))}</span>`}</td><td class="stc"><div class="stcol">${selHTML(r.id)}${gcalTr(r)}</div></td></tr>`}).join("")
     : `<tr><td colspan="5" class="small">Nenhuma peça com esses filtros.</td></tr>`;
 }
 
