@@ -1,0 +1,15 @@
+MASTER PLAN GO · TRÁFEGO PAGO + IMOBILIÁRIAS (Out a Dez/2026)
+
+Como publicar no GitHub Pages
+1. Crie um repositório no GitHub da GoCompany (ex.: masterplan-trafego).
+2. Envie TODO o conteúdo desta pasta (index.html e a pasta midia) com "Add file > Upload files".
+3. Em Settings > Pages, escolha a branch "main" e a pasta "/ (root)". Salve.
+4. O link fica: https://gocompany360.github.io/<nome-do-repositorio>/
+
+Conteúdo
+- index.html: o painel completo (tudo embutido, funciona sozinho).
+- midia/: planilha do cronograma de tráfego pago (Excel). Coloque aqui também logo e imagens que quiser usar nas próximas versões.
+
+Observação
+No GitHub Pages, as alterações feitas na página ficam salvas no navegador de quem editou.
+Use o botão "Salvar versão com alterações" (índice lateral) para gerar um arquivo com tudo atualizado e substituir o index.html no repositório.

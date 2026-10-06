@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Master Plan · Tráfego Pago GO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: mesmo sistema do Master Plan Schio/Maestro — índice lateral fixo + páginas por hash, cartões de vidro sobre gradiente champagne/navy */
+:root{
+  --navy:#071739; --navy2:#1c2d55; --gold:#A68868; --gold-l:#cdb89f; --gold-d:#8a6d50; --champ:#efe5d7;
+  --bg:#fbf9f6; --paper:#ffffff; --surface:#f5f1ec; --ink:#2b3143; --head:#071739; --muted:#6b7084; --line:#ebe4da; --line2:#e2d7c8;
+  --glass:rgba(255,255,255,.72); --shadow:0 18px 40px -26px rgba(7,23,57,.35); --shadow-s:0 8px 22px -16px rgba(7,23,57,.4);
+  --hero:linear-gradient(118deg,#f8f2ea 0%,#efe3d2 38%,#e8ebf2 78%,#dfe5f0 100%);
+  --gtext:linear-gradient(100deg,#071739 0%,#1c2d55 45%,#A68868 100%);
+  --ok:#2f7a4c; --ok-bg:#e4f1e8; --wip:#8a6a48; --wip-bg:#f4ebde; --todo:#a3392e; --todo-bg:#f8e4e0; --req:#2a4a8a; --req-bg:#e7ecf7;
+  --live:#071739; --live-fg:#ffffff; --onbtn:#ffffff;
+  --side-bg:linear-gradient(180deg,#ffffff 0%,#faf6f0 55%,#f1e8dc 100%);
+  --vid:#e8dcc6; --car:#dce3ec; --est:#ece9e4;
+  --dv:#1f8a4c; --dc:#1f5fbf; --de:#c8352b;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1220; --paper:#121a2c; --surface:#161f34; --ink:#d9dde7; --head:#f1f3f8; --muted:#9aa2b8; --line:#232d45; --line2:#2d3853; --champ:#2a2419;
+  --glass:rgba(20,28,46,.72); --shadow:0 18px 40px -26px rgba(0,0,0,.8); --shadow-s:0 8px 22px -16px rgba(0,0,0,.8);
+  --hero:linear-gradient(118deg,#1a2338 0%,#1c2440 40%,#2a2a33 80%,#3a3026 100%);
+  --gtext:linear-gradient(100deg,#f1f3f8 0%,#d9c4a8 60%,#A68868 100%);
+  --ok:#86d3a5; --ok-bg:#173022; --wip:#dcb98f; --wip-bg:#2e2417; --todo:#f0a096; --todo-bg:#3a1c19; --req:#a8bdf0; --req-bg:#1a2647;
+  --live:#d9c4a8; --live-fg:#0c1220;
+  --side-bg:linear-gradient(180deg,#121a2c 0%,#111827 60%,#1a1a20 100%);
+  --vid:#3a3026; --car:#1f2b45; --est:#262a33; --dv:#4cc77f; --dc:#5b9bf0; --de:#f0675c; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0c1220; --paper:#121a2c; --surface:#161f34; --ink:#d9dde7; --head:#f1f3f8; --muted:#9aa2b8; --line:#232d45; --line2:#2d3853; --champ:#2a2419;
+  --glass:rgba(20,28,46,.72); --shadow:0 18px 40px -26px rgba(0,0,0,.8); --shadow-s:0 8px 22px -16px rgba(0,0,0,.8);
+  --hero:linear-gradient(118deg,#1a2338 0%,#1c2440 40%,#2a2a33 80%,#3a3026 100%);
+  --gtext:linear-gradient(100deg,#f1f3f8 0%,#d9c4a8 60%,#A68868 100%);
+  --ok:#86d3a5; --ok-bg:#173022; --wip:#dcb98f; --wip-bg:#2e2417; --todo:#f0a096; --todo-bg:#3a1c19; --req:#a8bdf0; --req-bg:#1a2647;
+  --live:#d9c4a8; --live-fg:#0c1220;
+  --side-bg:linear-gradient(180deg,#121a2c 0%,#111827 60%,#1a1a20 100%);
+  --vid:#3a3026; --car:#1f2b45; --est:#262a33; --dv:#4cc77f; --dc:#5b9bf0; --de:#f0675c; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%}
+body{margin:0;min-height:100%;color:var(--ink);font-family:'Red Hat Display',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1100px 700px at 100% -10%,rgba(166,136,104,.16),transparent 60%),radial-gradient(900px 700px at -10% 110%,rgba(28,45,85,.10),transparent 60%),var(--bg);background-attachment:fixed}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+a{color:inherit}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;transition-duration:.001s!important}}
+
+.prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:3px;z-index:60}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-l),var(--gold),var(--navy2));transition:width .6s cubic-bezier(.2,.7,.2,1)}
+
+.shell{display:grid;grid-template-columns:320px 1fr;min-height:100vh}
+.side{background:var(--side-bg);border-right:1px solid var(--line2);position:sticky;top:0;height:100vh;overflow-y:auto;padding:34px 22px 30px 28px;scrollbar-width:thin}
+.wm{display:inline-flex;align-items:baseline;gap:0;font-weight:500;letter-spacing:.07em;font-size:25px;line-height:1;color:var(--gold-d);text-decoration:none}
+.wm b{font-weight:700}
+.wm sup{font-size:9px;letter-spacing:0;margin-left:2px;font-weight:600}
+.wm.mb{font-size:17px}
+.side .doc{margin:26px 0 22px;padding:20px 20px 18px;border-radius:16px;background:var(--hero);border:1px solid var(--line2)}
+.side .doc b{display:block;font-size:28px;color:var(--head);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.side .doc span{display:block;font-size:14.5px;color:var(--muted);margin-top:6px;font-weight:500}
+.toc{list-style:none;margin:0;padding:0}
+.toc .ch{font-size:13.5px;font-weight:700;color:var(--gold-d);margin:22px 0 8px 4px;display:flex;align-items:center;gap:10px}
+.toc .ch::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+.toc a{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:15.5px;color:var(--ink);padding:8px 10px;border-radius:10px;line-height:1.3;transition:background .2s ease,transform .2s ease}
+.toc a .pn{flex:none;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line2);background:var(--paper);font-variant-numeric:tabular-nums}
+.toc a:hover{background:rgba(166,136,104,.10);transform:translateX(2px)}
+.toc a[aria-current="page"]{color:var(--head);font-weight:700;background:linear-gradient(90deg,rgba(166,136,104,.22),rgba(166,136,104,.04));box-shadow:inset 0 0 0 1px rgba(166,136,104,.25)}
+.toc a[aria-current="page"] .pn{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--onbtn);border-color:transparent}
+.toc a .mini{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.side .upd{margin-top:28px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line2);padding-top:16px}
+.side .upd b{color:var(--head);font-size:15px}
+
+.mbar{display:none}
+main{min-width:0}
+.page{display:none;max-width:980px;margin:0 auto;padding:44px 52px 48px}
+.page.on{display:block}
+.page.on>*{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:.001;transform:translateY(12px)}}
+
+.ph{position:relative;overflow:hidden;border-radius:22px;padding:40px 44px 38px;margin:0 0 34px;background:var(--hero);background-size:200% 200%;animation:drift 18s ease-in-out infinite alternate;border:1px solid var(--line2);box-shadow:var(--shadow)}
+@keyframes drift{from{background-position:0% 50%}to{background-position:100% 50%}}
+.ph .bignum{position:absolute;right:34px;bottom:-26px;font-size:150px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(166,136,104,.55);letter-spacing:-.04em;pointer-events:none;font-variant-numeric:tabular-nums}
+.ph .chap{position:relative;font-size:14.5px;font-weight:700;color:var(--gold-d);margin:0 0 10px;display:inline-flex;align-items:center;gap:10px}
+.ph .chap::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px}
+.ph h1{position:relative;font-size:clamp(32px,4.4vw,52px);line-height:1.04;margin:0;font-weight:800;letter-spacing:-.025em;background:var(--gtext);-webkit-background-clip:text;background-clip:text;color:transparent;max-width:13em;text-wrap:balance}
+.ph .tagl{position:relative;margin:12px 0 0;color:var(--muted);font-size:15.5px;font-weight:600;max-width:34em}
+.lead{font-size:21px;line-height:1.5;color:var(--head);font-weight:500;margin:0 0 28px;max-width:40em}
+h2{font-size:24px;color:var(--head);margin:46px 0 14px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h2::before{content:"";width:8px;height:8px;border-radius:2px;background:linear-gradient(135deg,var(--gold-l),var(--gold-d));transform:rotate(45deg);flex:none}
+h3{font-size:18px;color:var(--head);margin:26px 0 8px;font-weight:700}
+p{margin:0 0 15px;max-width:46em}
+ul{margin:0 0 18px;padding-left:22px;max-width:46em}
+li{margin-bottom:8px}
+ul li::marker{color:var(--gold)}
+strong{color:var(--head);font-weight:700}
+.small{font-size:14.5px;color:var(--muted)}
+
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:60px}
+.pager a{text-decoration:none;display:flex;flex-direction:column;gap:3px;padding:16px 20px;border:1px solid var(--line2);border-radius:14px;background:var(--glass);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.pager a:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-l)}
+.pager a small{font-size:13px;color:var(--gold-d);font-weight:600}
+.pager a b{color:var(--head);font-size:17px}
+.pager .nx{grid-column:2;text-align:right}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 30px}
+.facts div{padding:20px 20px 18px;border-radius:16px;background:var(--glass);border:1px solid var(--line2);box-shadow:var(--shadow-s);position:relative;overflow:hidden;min-width:0}
+.facts div::after{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-l),var(--gold),transparent)}
+.facts b{display:block;font-size:31px;font-weight:800;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:var(--gtext);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:4px}
+.facts span{font-size:14px;color:var(--muted);line-height:1.4;display:block}
+.scroll{overflow-x:auto;margin:8px 0 26px;border:1px solid var(--line2);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-s)}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.5}
+th{text-align:left;color:var(--head);font-weight:700;padding:13px 16px;font-size:13.5px;white-space:nowrap;background:linear-gradient(180deg,var(--surface),var(--paper));border-bottom:1px solid var(--line2)}
+td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top}
+thead+tbody tr:first-child td{border-top:0}
+tbody tr:hover td{background:rgba(166,136,104,.06)}
+td.k{font-weight:700;color:var(--head)}
+.num,td.c,th.c{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+tr.tot td{font-weight:800;color:var(--head);background:var(--surface)}
+.note{position:relative;background:linear-gradient(120deg,rgba(166,136,104,.16),rgba(166,136,104,.05) 70%,transparent);border:1px solid rgba(166,136,104,.3);padding:18px 22px 18px 24px;margin:18px 0 26px;border-radius:14px;max-width:48em}
+.note::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold-l),var(--gold-d))}
+.note p:last-child{margin-bottom:0}
+.note.warn{background:linear-gradient(120deg,var(--todo-bg),transparent 80%);border-color:var(--line2)}
+.note.warn::before{background:var(--todo)}
+.st{display:inline-block;font-size:13px;font-weight:700;padding:4px 11px;border-radius:99px;white-space:nowrap}
+.st.ok{color:var(--ok);background:var(--ok-bg)} .st.wip{color:var(--wip);background:var(--wip-bg)} .st.todo{color:var(--todo);background:var(--todo-bg)} .st.req{color:var(--req);background:var(--req-bg)} .st.fut{color:var(--muted);border:1px dashed var(--muted)} .st.live{color:var(--live-fg);background:var(--live)}
+.fmt{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 10px;border-radius:6px;color:var(--head);white-space:nowrap}
+.fmt.Vídeo{background:var(--vid)} .fmt.Carrossel{background:var(--car)} .fmt.Estático{background:var(--est)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 26px}
+.kv{padding:18px 20px;border-radius:16px;border:1px solid var(--line2);background:var(--glass);min-width:0}
+.kv small{display:block;font-size:13px;font-weight:700;color:var(--gold-d);margin-bottom:4px}
+.kv p{margin:0;font-size:15.5px;color:var(--ink)}
+.req-list{list-style:none;padding:0;margin:0 0 22px;max-width:none;display:grid;gap:10px}
+.req-list li{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;padding:15px 18px;border:1px solid var(--line2);border-radius:12px;background:var(--glass);margin:0}
+.req-list small{display:block;color:var(--muted);font-size:14px;line-height:1.45;margin-top:3px}
+
+.cover{position:relative;border-radius:28px;overflow:hidden;background:var(--hero);background-size:200% 200%;animation:drift 18s ease-in-out infinite alternate;border:1px solid var(--line2);box-shadow:var(--shadow);padding:64px 64px 56px}
+.cover .eyebrow{font-size:15.5px;color:var(--gold-d);font-weight:600;margin-bottom:22px}
+.cover h1{font-size:clamp(48px,7vw,96px);line-height:.92;margin:0 0 22px;font-weight:800;letter-spacing:-.04em;background:var(--gtext);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover h1::after{content:"";display:block;width:64px;height:3px;border-radius:3px;margin-top:22px;background:linear-gradient(90deg,var(--gold),var(--gold-l))}
+.cover .sub{font-size:24px;color:var(--head);font-weight:600;margin:0 0 6px}
+.cover .sub2{color:var(--muted);margin:0 0 30px;font-size:17px;max-width:36em}
+.cover .bigq{position:absolute;right:40px;bottom:-40px;font-size:220px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(166,136,104,.4);letter-spacing:-.05em;pointer-events:none}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16px;color:#fff;background:linear-gradient(120deg,#071739 0%,#1c2d55 55%,#8a6d50 130%);padding:14px 26px;border-radius:99px;box-shadow:0 14px 30px -16px rgba(7,23,57,.7);transition:transform .25s ease}
+.btn:hover{transform:translateY(-2px)}
+.covergrid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:40px;max-width:760px}
+.covergrid a{text-decoration:none;padding:12px 14px;border-radius:12px;background:var(--glass);border:1px solid var(--line2);font-size:14px;font-weight:600;color:var(--head);line-height:1.3;transition:transform .2s ease,border-color .2s ease}
+.covergrid a small{display:block;color:var(--muted);font-weight:500;font-size:12.5px}
+.covergrid a:hover{transform:translateY(-2px);border-color:var(--gold-l)}
+
+.road{list-style:none;padding:0;margin:10px 0 28px;max-width:none}
+.road li{display:grid;grid-template-columns:44px 1fr;gap:18px;margin:0;padding-bottom:22px;position:relative}
+.road li::before{content:"";position:absolute;left:21px;top:44px;bottom:2px;width:2px;background:linear-gradient(180deg,var(--gold-l),var(--line))}
+.road li:last-child::before{display:none}
+.road .dot{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line2);background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--muted)}
+.road .dot.now{border:0;color:#fff;background:linear-gradient(135deg,var(--gold-l),var(--gold-d));box-shadow:0 0 0 6px rgba(166,136,104,.16);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(166,136,104,.06)}}
+.road li>div:last-child{padding:12px 18px 14px;border-radius:14px;border:1px solid var(--line2);background:var(--glass);min-width:0}
+.road h3{margin:0 0 4px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.road p{margin:0;color:var(--muted);font-size:15.5px}
+
+.week{list-style:none;padding:0;margin:0 0 20px;max-width:none;display:grid;gap:12px}
+.week>li{display:grid;grid-template-columns:58px 1fr auto;gap:18px;padding:18px 20px;border:1px solid var(--line2);border-radius:16px;background:var(--glass);margin:0;transition:transform .25s ease,box-shadow .25s ease}
+.week>li:hover{transform:translateY(-2px);box-shadow:var(--shadow-s)}
+.week>li>div{min-width:0}
+.week .d{font-size:34px;font-weight:800;line-height:1;background:var(--gtext);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.week .d small{display:block;font-size:12.5px;color:var(--muted);-webkit-text-fill-color:var(--muted);font-weight:600;margin-top:6px}
+.week h3{margin:0 0 6px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:17px}
+.week p{margin:0 0 6px;font-size:15.5px}
+.week .who{font-size:15px;color:var(--head);font-weight:700;margin-top:8px;padding-left:12px;border-left:2px solid var(--gold)}
+.week .who small{display:block;font-size:12.5px;color:var(--gold-d);font-weight:600}
+.week .obs{font-size:13px;color:var(--todo);font-weight:600;margin-top:8px}
+.week>li.isnow{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+
+.wkcard{padding:24px 26px;border-radius:20px;background:var(--hero);border:1px solid var(--line2);box-shadow:var(--shadow);margin:0 0 26px}
+.wkcard-top{display:flex;flex-wrap:wrap;gap:16px 30px;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.wk-lbl{display:block;font-size:14.5px;font-weight:700;color:var(--gold-d);margin-bottom:4px}
+.wkcard-top .pct{font-size:54px;font-weight:800;line-height:1;letter-spacing:-.03em;background:var(--gtext);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.wk-sub{font-size:15px;color:var(--muted);margin-left:8px}
+.wk-counts{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted)}
+.wk-counts b{color:var(--head);font-variant-numeric:tabular-nums}
+.wk-counts i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.c-live{background:var(--live)}.c-ok{background:var(--ok)}.c-req{background:var(--req)}.c-wip{background:var(--gold)}.c-todo{background:var(--todo)}.c-fut{background:var(--muted)}
+.wkbar{height:14px;border-radius:99px;background:var(--paper);border:1px solid var(--line2);overflow:hidden;display:flex}
+.wkbar i{display:block;height:100%;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.wkbar i.a{background:linear-gradient(90deg,var(--gold),var(--navy2))}
+.wkbar i.b{background:var(--gold-l)}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.filters button{font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:var(--paper);border:1px solid var(--line2);border-radius:99px;padding:6px 15px;cursor:pointer;transition:all .2s ease}
+.filters button:hover{border-color:var(--gold-l);color:var(--head)}
+.filters button[aria-pressed="true"]{color:#fff;border-color:transparent;background:linear-gradient(120deg,#A68868,#8a6d50)}
+.filters .lbl{font-size:13px;font-weight:700;color:var(--gold-d);align-self:center;margin-right:4px;min-width:84px}
+.people button[aria-pressed="true"]{background:linear-gradient(120deg,#071739,#1c2d55 60%,#8a6d50 140%)}
+
+select.sts{font:inherit;font-size:13px;font-weight:700;padding:4px 26px 4px 11px;border-radius:99px;border:0;cursor:pointer;appearance:none;-webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 13px) 52%,calc(100% - 9px) 52%;background-size:4px 4px;background-repeat:no-repeat;align-self:start;white-space:nowrap}
+select.sts.todo{color:var(--todo);background-color:var(--todo-bg)} select.sts.wip{color:var(--wip);background-color:var(--wip-bg)} select.sts.req{color:var(--req);background-color:var(--req-bg)} select.sts.ok{color:var(--ok);background-color:var(--ok-bg)} select.sts.live{color:var(--live-fg);background-color:var(--live)} select.sts.fut{color:var(--muted);background-color:var(--surface)}
+select.sts:disabled{cursor:default;opacity:.85}
+select.sts option{color:var(--ink);background:var(--paper)}
+
+.flow td.c{min-width:64px}
+.flow td.c.now{background:rgba(166,136,104,.14)}
+.flow th.now{color:var(--gold-d)}
+.dots{display:inline-flex;gap:3px;justify-content:center}
+.dots{gap:4px}
+.dots i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.dots i.Vídeo{background:var(--dv)} .dots i.Carrossel{background:var(--dc)} .dots i.Estático{background:var(--de)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:14px;color:var(--muted);margin:0 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.syncmsg{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+.calrow td{font-size:14.5px}
+.calrow td.ch{color:var(--head);font-weight:600;min-width:240px}
+.calrow td.pj{white-space:nowrap;font-weight:700;color:var(--head)}
+
+@media (max-width:1060px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .mbar{min-width:0}.mbar .wm{flex:none}.mbar span#mcur{min-width:0}
+  .side{position:fixed;inset:0 auto 0 0;width:320px;max-width:86vw;z-index:70;transform:translateX(-102%);transition:transform .35s cubic-bezier(.2,.7,.2,1);padding-top:calc(env(safe-area-inset-top,0px) + 28px);box-shadow:0 0 60px rgba(7,23,57,.25)}
+  .side.open{transform:none}
+  .scrim.on{display:block;position:fixed;inset:0;background:rgba(7,12,24,.35);z-index:65}
+  .mbar{display:flex;position:sticky;top:env(safe-area-inset-top,0px);z-index:50;align-items:center;gap:12px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line2);padding:10px 16px}
+  .mbar button{font:inherit;font-weight:700;font-size:14.5px;color:#fff;background:linear-gradient(120deg,#071739,#1c2d55);border:0;border-radius:99px;padding:8px 16px;cursor:pointer}
+  .mbar span{color:var(--muted);font-size:13.5px;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42%}
+  .page{padding:24px 18px 34px}
+  .ph{padding:30px 24px 28px;border-radius:18px}
+  .ph .bignum{font-size:110px;right:14px;bottom:-18px}
+  .cover{padding:40px 26px 36px}
+  .facts{grid-template-columns:1fr 1fr}
+  .covergrid{grid-template-columns:1fr 1fr}
+}
+.scrim{display:none}
+@media (max-width:620px){
+  body{font-size:16.5px}
+  .week>li{grid-template-columns:46px 1fr;padding:16px}.week>li>select{grid-column:2;justify-self:start}
+  .lead{font-size:19px}
+  .two{grid-template-columns:1fr}
+  .pager{grid-template-columns:1fr}.pager .nx{grid-column:1}
+  .facts b{font-size:26px}
+  .cover .bigq{font-size:140px}
+  .filters .lbl{min-width:100%}
+}
+
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:99px;background:var(--surface);border:1px solid var(--line2);margin:24px 0 0}
+.seg a{text-align:center;text-decoration:none;font-size:13.5px;font-weight:700;color:var(--muted);padding:7px 6px;border-radius:99px;transition:color .2s ease}
+.seg a:hover{color:var(--head)}
+.seg a[aria-current="true"]{color:#fff;background:linear-gradient(120deg,#071739,#1c2d55 60%,#8a6d50 140%)}
+.chip{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 10px;border-radius:6px;white-space:nowrap;color:var(--head);background:var(--surface);border:1px solid var(--line2)}
+.chip.on{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+.chip.off{color:var(--muted);border-style:dashed}
+.inp{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--paper);color:var(--ink);width:100%;min-width:0}
+.inp.n{width:62px;text-align:center;font-variant-numeric:tabular-nums}
+.inp:disabled{opacity:.7}
+.addf{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;padding:18px;border:1px solid var(--line2);border-radius:16px;background:var(--glass);margin:0 0 20px;align-items:end}
+.addf label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--gold-d)}
+.sbtn{font:inherit;font-weight:700;font-size:14.5px;color:#fff;border:0;border-radius:99px;padding:9px 20px;cursor:pointer;background:linear-gradient(120deg,#071739 0%,#1c2d55 55%,#8a6d50 130%)}
+.sbtn:disabled{opacity:.5;cursor:default}
+.xbtn{font:inherit;font-size:12.5px;font-weight:700;color:var(--todo);background:none;border:1px solid var(--line2);border-radius:99px;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.xbtn.arm{background:var(--todo-bg);border-color:transparent}
+.imt td{vertical-align:middle;font-size:14px}
+.imt td.nm{min-width:180px}
+.empty{padding:22px;border:1px dashed var(--line2);border-radius:14px;color:var(--muted);font-size:15px;background:var(--glass);margin:0 0 20px}
+.bars{display:grid;gap:10px;margin:8px 0 26px;max-width:620px}
+.bar{display:grid;grid-template-columns:130px 1fr 40px;gap:12px;align-items:center;font-size:15px}
+.bar .tr{height:10px;border-radius:99px;background:var(--surface);overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold-l),var(--gold-d))}
+.bar b{text-align:right;font-variant-numeric:tabular-nums;color:var(--head)}
+.day{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:14px 18px;border:1px solid var(--line2);border-radius:14px;background:var(--glass);margin:0 0 10px}
+.day b{color:var(--head)}
+.day p{margin:0;font-size:15.5px}
+@media (max-width:620px){.day{grid-template-columns:1fr;gap:4px}.bar{grid-template-columns:100px 1fr 34px}}
+.edl{display:grid;gap:2px;font-size:12px;font-weight:700;color:var(--gold-d);margin:0 0 6px}
+.edt{font-weight:600;color:var(--head);resize:vertical;line-height:1.4}
+textarea.edt{font-weight:500;color:var(--ink)}
+.edt:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 2px rgba(166,136,104,.25)}
+.edt.saved{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok-bg)}
+.edt.err{border-color:var(--todo)}
+.edtag{font-size:12px;color:var(--muted)}
+.lnk{font:inherit;font-size:12px;color:var(--gold-d);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+.calrow td.ch{min-width:300px}
+.ed{white-space:pre-wrap;border-radius:4px;cursor:text;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background .15s ease,box-shadow .15s ease}
+.ed:hover{background:rgba(166,136,104,.13)}
+.ed:focus{outline:none;background:var(--paper);box-shadow:0 0 0 2px var(--gold);color:var(--head)}
+.ed.mod{box-shadow:inset 0 -2px 0 var(--gold)}
+.ed.err{box-shadow:0 0 0 2px var(--todo)}
+.ed.box{display:block;padding:6px 10px;margin:2px 0 8px;border:1px solid var(--line2);border-radius:8px;background:var(--paper);font-weight:500}
+.ed.box.mod{border-color:var(--gold)}
+.edhint{margin:12px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:90;max-width:calc(100% - 32px);padding:11px 20px;border-radius:99px;font-size:14.5px;font-weight:600;color:var(--live-fg);background:var(--live);box-shadow:var(--shadow);transition:opacity .25s ease,transform .25s ease}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.team{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.mem{display:inline-flex;align-items:center;gap:10px;padding:8px 12px 8px 8px;border:1px solid var(--line2);border-radius:99px;background:var(--glass)}
+.mem .av{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--gold-l),var(--gold-d));flex:none}
+.mem b{display:block;font-size:14.5px;color:var(--head);line-height:1.2}
+.mem small{display:block;font-size:12px;color:var(--muted)}
+.resp{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.resp small{font-size:12.5px;font-weight:600;color:var(--gold-d)}
+.whosel{width:auto;padding:4px 10px;font-size:13.5px;font-weight:600}
+.gcal{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:5px 13px 5px 10px;border:1px solid var(--line2);border-radius:99px;background:var(--paper);color:var(--req);font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:border-color .2s ease,transform .2s ease}
+.gcal:hover{border-color:var(--req);transform:translateY(-1px)}
+.gcal svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.resp .gcal{margin-top:0}
+td .gcal{margin-top:8px;font-size:12px}
+</style>
+</head>
+<body>
+
+
+<div class="prog" aria-hidden="true"><i id="progi"></i></div>
+<div class="shell">
+  <div class="mbar"><button type="button" id="mopen" aria-controls="side" aria-expanded="false">Índice</button><span class="wm mb">GO<b>COMPANY</b><sup>360°</sup></span><span id="mcur"></span></div>
+  <div class="scrim" id="scrim"></div>
+  <aside class="side" id="side">
+    <a class="wm" href="#inicio" aria-label="GO Company 360°">GO<b>COMPANY</b><sup>360°</sup></a>
+    <nav class="seg" aria-label="Seção do Master Plan"><a href="#inicio" id="segTr">Tráfego pago</a><a href="#imob" id="segIm">Imobiliárias</a></nav>
+    <div class="doc"><b id="docT">Tráfego Pago</b><span id="docS">Carteira de estoque · Out a Dez/2026</span></div>
+    <nav aria-label="Índice do painel"><ul class="toc" id="toc"></ul></nav>
+    <div class="upd">Última atualização<br><b>06/10/2026</b><button type="button" class="sbtn" id="exportBtn" hidden style="margin-top:14px;width:100%">Salvar versão com alterações</button><p class="edhint" id="edHint" hidden>Textos de condição e de criativo podem ser editados: clique, altere e clique fora para salvar. Enter salva, Esc cancela.</p></div>
+  </aside>
+  <main id="main"></main>
+</div>
+
+<script>
+const PAGE_SRC = "<!doctype html>\n" + document.documentElement.outerHTML;
+const SEED = /*SEED*/{}/*ENDSEED*/;
+const D = {"rows": [{"id": "c001", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-13", "p": 0, "f": "Vídeo", "t": "Preço de custo", "i": "Consultor na obra explica em 30s o que é obra a preço de custo e por que o m² sai abaixo do alto padrão da cidade.", "c": "O m² mais em conta de Santa Maria no verdadeiro alto padrão.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c002", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-13", "p": 0, "f": "Estático", "t": "Preço do m²", "i": "Fachada/render + frase de impacto.", "c": "O m² mais em conta da cidade no verdadeiro alto padrão.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c003", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-13", "p": 1, "f": "Carrossel", "t": "Condição passo a passo", "i": "Card 1 entrada, card 2 parcelas, card 3 prazo de 40 meses, card 4 'monte a sua condição'.", "c": "Do jeito que cabe no seu bolso.", "cta": "Simule sua condição no WhatsApp", "o": "Validar valores da condição com a construtora"}, {"id": "c004", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-13", "p": 1, "f": "Estático", "t": "Entrada", "i": "Render + números grandes.", "c": "Entrada de R$ 10 mil + 40 meses para pagar.", "cta": "Simule sua condição no WhatsApp", "o": "Validar valores da condição com a construtora"}, {"id": "c005", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-14", "p": 2, "f": "Vídeo", "t": "Quase pronto", "i": "Tour pela obra em fase final (acabamentos, fachada, áreas comuns).", "c": "Falta pouco para você pegar as chaves.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c006", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-14", "p": 2, "f": "Estático", "t": "Condição", "i": "Render + números destacados.", "c": "20% durante a obra. Saldo nas chaves.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c007", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-14", "p": 3, "f": "Vídeo", "t": "Manifesto", "i": "Vídeo cinematográfico, sem preço: arquitetura, luz, texturas e trilha sofisticada.", "c": "Poucos endereços são únicos. Este é um deles.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c008", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-14", "p": 3, "f": "Estático", "t": "Exclusividade", "i": "Render principal, layout minimalista.", "c": "Exclusividade não se repete.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c009", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-15", "p": 4, "f": "Carrossel", "t": "Por que perto da UFSM", "i": "Vantagens de morar perto da universidade (tempo, segurança, rotina).", "c": "Morar perto da UFSM muda a rotina.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c010", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-15", "p": 4, "f": "Estático", "t": "Localização", "i": "Render + pin UFSM.", "c": "Do lado da UFSM.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c011", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-15", "p": 5, "f": "Vídeo", "t": "Últimas unidades", "i": "Tour pelos 2 apartamentos tipo disponíveis e pela cobertura.", "c": "2 apartamentos tipo e a cobertura: as últimas oportunidades do Fiorello.", "cta": "Agende sua visita", "o": "Pausar/atualizar se alguma unidade for vendida"}, {"id": "c012", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-15", "p": 5, "f": "Estático", "t": "Urgência", "i": "Foto + selo 'últimas unidades'.", "c": "Últimas unidades: 2 apartamentos tipo e a cobertura.", "cta": "Agende sua visita", "o": "Pausar/atualizar se alguma unidade for vendida"}, {"id": "c013", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-16", "p": 6, "f": "Vídeo", "t": "7 min do Recanto Maestro", "i": "Trajeto de carro do loteamento até o Recanto Maestro com cronômetro na tela.", "c": "A 7 minutos do Recanto Maestro.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c014", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-16", "p": 6, "f": "Estático", "t": "Localização", "i": "Foto aérea + selo de distância.", "c": "A 7 minutos do Recanto Maestro.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c015", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-16", "p": 7, "f": "Carrossel", "t": "3 jeitos de comprar", "i": "Card financiamento Banrisul, card direto, card permuta.", "c": "3 jeitos de comprar o seu apê.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c016", "m": "Outubro", "w": "S01 · 12/10–16/10", "d": "2026-10-16", "p": 7, "f": "Estático", "t": "Pronto", "i": "Foto da fachada.", "c": "Pronto para morar em Lajeado.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c017", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-20", "p": 0, "f": "Vídeo", "t": "Localização premium", "i": "Imagens de drone da Av. Medianeira e do entorno (comércio, serviços, acessos) chegando até o empreendimento.", "c": "Morar na Medianeira, com o padrão que você sempre quis.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c018", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-20", "p": 0, "f": "Carrossel", "t": "5 motivos", "i": "Card por argumento: preço de custo, Av. Medianeira, 124–245 m², padrão de acabamento, entrega em 20 meses.", "c": "5 motivos para escolher o Mont'Santo.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c019", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-20", "p": 1, "f": "Vídeo", "t": "Condição facilitada", "i": "Consultor mostra na tela: entrada a partir de R$ 10 mil (ou 10%) e saldo em até 40 meses.", "c": "Seu apê com entrada de R$ 10 mil e 40 meses para pagar.", "cta": "Simule sua condição no WhatsApp", "o": "Validar valores da condição com a construtora"}, {"id": "c020", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-20", "p": 1, "f": "Carrossel", "t": "Qual tipologia é a sua", "i": "Um card por tipologia com perfil de morador.", "c": "Studio, 1 ou 2 dorm: qual é o seu?", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c021", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-21", "p": 2, "f": "Carrossel", "t": "Como pagar", "i": "20% durante a obra → saldo financiado nas chaves, em cards simples.", "c": "Pague 20% na obra e o saldo só nas chaves.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c022", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-21", "p": 2, "f": "Estático", "t": "Permuta", "i": "Render + selo 'aceita permuta'.", "c": "Aceitamos o seu bem como parte do pagamento.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar bens aceitos em permuta"}, {"id": "c023", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-21", "p": 3, "f": "Vídeo", "t": "Localização", "i": "Drone revelando o entorno e o skyline com o empreendimento em destaque.", "c": "No centro de tudo. Acima de tudo.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c024", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-21", "p": 3, "f": "Carrossel", "t": "O que torna único", "i": "5 cards com atributos exclusivos do projeto.", "c": "Por que não existe outro Infinity.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c025", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-22", "p": 4, "f": "Vídeo", "t": "Perto da UFSM", "i": "Trajeto do empreendimento até a UFSM com tempo na tela.", "c": "Pertinho da UFSM e pronto para o início do ano.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c026", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-22", "p": 4, "f": "Carrossel", "t": "Comprar x alugar", "i": "Comparativo para os pais: aluguel por 5 anos x parcela do imóvel.", "c": "Aluguel ou patrimônio? Faça as contas.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c027", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-22", "p": 5, "f": "Carrossel", "t": "Unidades disponíveis", "i": "Um card para cada apartamento tipo e um para a cobertura, com metragem e destaque.", "c": "Conheça as unidades disponíveis, incluindo a cobertura.", "cta": "Agende sua visita", "o": ""}, {"id": "c028", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-22", "p": 5, "f": "Estático", "t": "Permuta", "i": "Foto + selo de permuta.", "c": "Até 50% em permuta.", "cta": "Agende sua visita", "o": ""}, {"id": "c029", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-23", "p": 6, "f": "Vídeo", "t": "Infraestrutura pronta", "i": "Drone pelas ruas, calçamento e redes já executadas.", "c": "Lotes com 95% da infraestrutura concluída.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c030", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-23", "p": 6, "f": "Carrossel", "t": "Por que investir", "i": "Cards: turismo o ano todo, valorização da região, infraestrutura pronta.", "c": "Por que investir perto do Recanto Maestro.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c031", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-23", "p": 7, "f": "Vídeo", "t": "Pronto para morar", "i": "Tour pelo apartamento pronto em Lajeado.", "c": "Pronto para morar em Lajeado.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c032", "m": "Outubro", "w": "S02 · 19/10–23/10", "d": "2026-10-23", "p": 7, "f": "Carrossel", "t": "Tour fotográfico", "i": "Fotos reais, ambiente por ambiente.", "c": "Veja o Moradas do Lago por dentro.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c033", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-27", "p": 0, "f": "Carrossel", "t": "Como funciona o preço de custo", "i": "Passo a passo simples da obra a preço de custo e por que o cliente paga o valor real da construção.", "c": "Entenda por que o seu m² custa menos aqui.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c034", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-27", "p": 0, "f": "Estático", "t": "Localização", "i": "Foto aérea da Medianeira com selo do empreendimento.", "c": "Avenida Medianeira. Alto padrão. Preço de custo.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c035", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-27", "p": 1, "f": "Vídeo", "t": "Localização estratégica", "i": "Trajeto a pé do empreendimento até o Hospital de Caridade, com tempo na tela.", "c": "A poucos passos do Hospital de Caridade.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c036", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-27", "p": 1, "f": "Estático", "t": "Localização", "i": "Render + pin no mapa.", "c": "Ao lado do Hospital de Caridade.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c037", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-28", "p": 2, "f": "Vídeo", "t": "Formas de pagamento", "i": "Consultor apresenta as opções: 20% durante a obra e saldo nas chaves, permuta e Plano Safra.", "c": "4 jeitos de comprar o seu apartamento no Einstein.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c038", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-28", "p": 2, "f": "Carrossel", "t": "Status da obra", "i": "Fotos atuais da obra em sequência.", "c": "Veja como está o Einstein hoje.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c039", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-28", "p": 3, "f": "Carrossel", "t": "Arquitetura", "i": "Cards com conceito do projeto e decisões arquitetônicas.", "c": "Arquitetura que vira assinatura.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c040", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-28", "p": 3, "f": "Estático", "t": "Porte", "i": "Fachada imponente.", "c": "Infinity Residence. Um dos maiores do centro do estado.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c041", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-29", "p": 4, "f": "Vídeo", "t": "Pais de universitários", "i": "Consultor fala com os pais: em vez de 5 anos de aluguel, um imóvel que fica na família.", "c": "Em vez de pagar aluguel, invista no apê do seu filho.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c042", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-29", "p": 4, "f": "Estático", "t": "Entrega", "i": "Render + selo de entrega.", "c": "Pronto para o início do ano letivo.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c043", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-29", "p": 5, "f": "Vídeo", "t": "Permuta até 50%", "i": "Consultor explica a permuta de até 50% do valor.", "c": "Até 50% do valor em permuta.", "cta": "Agende sua visita", "o": ""}, {"id": "c044", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-29", "p": 5, "f": "Carrossel", "t": "Como funciona a permuta", "i": "Passo a passo da permuta de até 50%.", "c": "Seu imóvel pode pagar metade do Fiorello.", "cta": "Agende sua visita", "o": ""}, {"id": "c045", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-30", "p": 6, "f": "Carrossel", "t": "O que já está pronto", "i": "Fotos da infraestrutura executada, item a item.", "c": "95% concluído: veja o que já está pronto.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c046", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-30", "p": 6, "f": "Estático", "t": "Infraestrutura", "i": "Foto das ruas prontas.", "c": "Lotes com infraestrutura 95% concluída.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c047", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-30", "p": 7, "f": "Vídeo", "t": "Financiamento 100%", "i": "Consultor explica o financiamento de até 100% pelo Banrisul.", "c": "Financiamento de até 100% pelo Banrisul.", "cta": "Simule seu financiamento no WhatsApp", "o": "Validar uso da marca Banrisul"}, {"id": "c048", "m": "Outubro", "w": "S03 · 26/10–30/10", "d": "2026-10-30", "p": 7, "f": "Estático", "t": "Financiamento", "i": "Foto + selo Banrisul (validar uso da marca).", "c": "Financiamento de até 100% pelo Banrisul.", "cta": "Simule seu financiamento no WhatsApp", "o": "Validar uso da marca Banrisul"}, {"id": "c049", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-03", "p": 0, "f": "Vídeo", "t": "Plantas de 124 a 245 m²", "i": "Passeio em render 3D pelas plantas, da menor (124 m²) à maior (245 m²).", "c": "De 124 a 245 m²: escolha o tamanho do seu alto padrão.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c050", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-03", "p": 1, "f": "Carrossel", "t": "Segurança da obra SPE", "i": "Explica de forma simples o que é SPE e por que protege o comprador.", "c": "Obra em SPE: mais segurança para o seu investimento.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c051", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-04", "p": 2, "f": "Vídeo", "t": "Plano Safra", "i": "Vídeo direcionado ao produtor rural explicando como usar o Plano Safra na compra.", "c": "Produtor rural: seu apartamento pode sair pelo Plano Safra.", "cta": "Fale com um consultor no WhatsApp", "o": "Validar regras do Plano Safra"}, {"id": "c052", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-04", "p": 3, "f": "Carrossel", "t": "Áreas comuns", "i": "Um card por ambiente de lazer.", "c": "Lazer à altura de quem mora aqui.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c053", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-05", "p": 4, "f": "Vídeo", "t": "Investidor", "i": "Consultor mostra a procura por aluguel na região no começo do ano letivo.", "c": "Entrega justo quando a procura por aluguel dispara.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c054", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-05", "p": 5, "f": "Carrossel", "t": "Detalhes únicos", "i": "Cards com os diferenciais de projeto e acabamento.", "c": "Detalhes que não se repetem.", "cta": "Agende sua visita", "o": ""}, {"id": "c055", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-06", "p": 6, "f": "Vídeo", "t": "Investidor do turismo", "i": "Consultor fala do fluxo turístico o ano todo e do potencial de aluguel por temporada.", "c": "Invista onde o turismo não para.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c056", "m": "Novembro", "w": "S04 · 02/11–06/11", "d": "2026-11-06", "p": 7, "f": "Carrossel", "t": "Financiamento passo a passo", "i": "Como funciona o financiamento de até 100% pelo Banrisul.", "c": "Financiamento 100%: passo a passo.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c057", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-10", "p": 0, "f": "Carrossel", "t": "Plantas", "i": "Um card por planta com metragem e destaque de cada uma.", "c": "Qual planta combina com a sua família?", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c058", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-10", "p": 0, "f": "Estático", "t": "Metragens", "i": "Render de sala ampla + faixa de metragem.", "c": "Apartamentos de 124 a 245 m². Entrega em 20 meses.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c059", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-10", "p": 1, "f": "Vídeo", "t": "Tipologias", "i": "Tour rápido: studio, 1 e 2 dormitórios, mostrando o uso de cada espaço.", "c": "Studio, 1 ou 2 dormitórios: tem o tamanho da sua fase.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c060", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-10", "p": 1, "f": "Estático", "t": "Parcela", "i": "Destaque para o valor da parcela.", "c": "Parcelas a partir de R$ 1 mil.", "cta": "Simule sua condição no WhatsApp", "o": "Validar valores da condição com a construtora"}, {"id": "c061", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-11", "p": 2, "f": "Carrossel", "t": "Plano Safra", "i": "Passo a passo de como funciona a compra pelo Plano Safra.", "c": "Plano Safra: do campo para o seu apartamento.", "cta": "Fale com um consultor no WhatsApp", "o": "Validar regras do Plano Safra"}, {"id": "c062", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-11", "p": 2, "f": "Estático", "t": "Plano Safra", "i": "Peça com visual do campo + prédio.", "c": "Quase pronto e aceita Plano Safra.", "cta": "Fale com um consultor no WhatsApp", "o": "Validar regras do Plano Safra"}, {"id": "c063", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-11", "p": 3, "f": "Vídeo", "t": "Detalhes", "i": "Closes em materiais, revestimentos e acabamentos.", "c": "Feito nos detalhes, para quem não abre mão deles.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c064", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-11", "p": 3, "f": "Estático", "t": "Posicionamento", "i": "Close de detalhe arquitetônico.", "c": "Para poucos. Por definição.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c065", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-12", "p": 4, "f": "Carrossel", "t": "Investimento", "i": "Perfil do inquilino e por que a demanda cresce no início do ano.", "c": "Imóvel perto da universidade: aluguel garantido de procura.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c066", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-12", "p": 4, "f": "Estático", "t": "Pagamento", "i": "Render + duas opções.", "c": "Direto com a construtora ou financiado.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c067", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-12", "p": 5, "f": "Vídeo", "t": "Exclusividade", "i": "Closes de acabamento e ambientes, estilo editorial.", "c": "Pronto, exclusivo e para poucos.", "cta": "Agende sua visita", "o": ""}, {"id": "c068", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-12", "p": 5, "f": "Estático", "t": "Cobertura", "i": "Foto da cobertura em destaque.", "c": "A cobertura do Fiorello está disponível.", "cta": "Agende sua visita", "o": ""}, {"id": "c069", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-13", "p": 6, "f": "Carrossel", "t": "O que construir", "i": "Ideias de uso: casa de campo, casa para alugar, moradia fixa.", "c": "O que você vai construir no seu lote?", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c070", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-13", "p": 6, "f": "Estático", "t": "Investimento", "i": "Foto da região turística.", "c": "Invista onde o turismo não para.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c071", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-13", "p": 7, "f": "Vídeo", "t": "Formas de pagamento", "i": "Consultor mostra as 3 opções: financiamento, direto com a construtora e permuta.", "c": "Do jeito mais confortável para você.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c072", "m": "Novembro", "w": "S05 · 09/11–13/11", "d": "2026-11-13", "p": 7, "f": "Estático", "t": "Permuta", "i": "Foto + selo de permuta.", "c": "Aceitamos análise de permuta.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c073", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-17", "p": 0, "f": "Vídeo", "t": "Evolução da obra", "i": "Atualização da obra com cortes rápidos (estrutura, equipe, etapas) e lettering 'entrega em 20 meses'.", "c": "Entrega em 20 meses. Acompanhe a obra de perto.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c074", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-17", "p": 1, "f": "Carrossel", "t": "Tudo perto", "i": "Mapa com Hospital de Caridade, centro, faculdades e serviços.", "c": "Localização que facilita a rotina.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c075", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-18", "p": 2, "f": "Vídeo", "t": "Permuta", "i": "Consultor explica a permuta: o bem do cliente entra como parte do pagamento.", "c": "O seu bem pode virar a entrada do seu apê.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar bens aceitos em permuta"}, {"id": "c076", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-18", "p": 3, "f": "Carrossel", "t": "Localização", "i": "Mapa elegante com pontos de interesse e tempos de deslocamento.", "c": "Tudo a minutos. Nada em excesso.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c077", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-19", "p": 4, "f": "Vídeo", "t": "Formas de pagamento", "i": "Consultor explica: direto com a construtora ou financiamento.", "c": "Pague direto com a construtora ou financie.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c078", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-19", "p": 5, "f": "Carrossel", "t": "Localização", "i": "Mapa e pontos de interesse.", "c": "Endereço que combina com o produto.", "cta": "Agende sua visita", "o": ""}, {"id": "c079", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-19", "p": 6, "f": "Vídeo", "t": "Qualidade de vida", "i": "Natureza, tranquilidade e paisagem da 4ª Colônia.", "c": "Viver bem perto de tudo o que a região oferece.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c080", "m": "Novembro", "w": "S06 · 16/11–20/11", "d": "2026-11-19", "p": 7, "f": "Carrossel", "t": "Aluguel x parcela", "i": "Comparativo visual.", "c": "Troque o aluguel pela parcela do seu apê.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c081", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-24", "p": 0, "f": "Carrossel", "t": "Entorno", "i": "Mapa da Medianeira com distâncias para escolas, mercados, hospitais e centro.", "c": "Tudo o que você precisa, a poucos minutos.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c082", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-24", "p": 1, "f": "Vídeo", "t": "Investidor", "i": "Consultor fala da procura por aluguel de profissionais da saúde e estudantes na região.", "c": "Studio perto do hospital: procura por aluguel o ano todo.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c083", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-25", "p": 2, "f": "Carrossel", "t": "Permuta", "i": "O que pode ser avaliado como permuta e como é feita a análise.", "c": "Aceitamos permuta. Veja como funciona.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar bens aceitos em permuta"}, {"id": "c084", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-25", "p": 3, "f": "Vídeo", "t": "Grandiosidade", "i": "Imagens de escala: fachada, hall, áreas comuns.", "c": "Um dos maiores empreendimentos do centro do estado.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c085", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-26", "p": 4, "f": "Carrossel", "t": "2 formas de pagar", "i": "Card direto com a construtora x card financiamento.", "c": "Escolha como pagar.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c086", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-26", "p": 5, "f": "Vídeo", "t": "Pronto para morar", "i": "Cenas de mudança/chaves na mão.", "c": "Mude ainda este ano.", "cta": "Agende sua visita", "o": ""}, {"id": "c087", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-27", "p": 6, "f": "Carrossel", "t": "Mapa da região", "i": "Distâncias para Recanto Maestro, São João do Polêsine e pontos turísticos.", "c": "Tudo perto, longe da correria.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c088", "m": "Novembro", "w": "S07 · 23/11–27/11", "d": "2026-11-27", "p": 7, "f": "Vídeo", "t": "Localização", "i": "Imagens de Lajeado e do entorno do empreendimento.", "c": "Viva bem em Lajeado.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c089", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-01", "p": 0, "f": "Vídeo", "t": "Investimento", "i": "Consultor compara comprar agora a preço de custo x comprar pronto: a valorização acontece até a entrega.", "c": "Comece 2027 com um patrimônio que valoriza até a entrega.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c090", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-01", "p": 0, "f": "Estático", "t": "Urgência", "i": "Render + selo 'últimas unidades'.", "c": "Últimas unidades a preço de custo.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar estoque antes de subir"}, {"id": "c091", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-01", "p": 1, "f": "Carrossel", "t": "Aluguel x parcela", "i": "Comparativo visual entre pagar aluguel e pagar o próprio apê.", "c": "Por que continuar pagando aluguel?", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c092", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-01", "p": 1, "f": "Estático", "t": "Oferta", "i": "Peça com selo 'condição de fim de ano'.", "c": "Condição especial de fim de ano no Sync Floriano.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c093", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-02", "p": 2, "f": "Vídeo", "t": "Acabamentos", "i": "Close nos detalhes de acabamento e no apartamento quase pronto.", "c": "Veja de perto o padrão que você vai receber.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c094", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-02", "p": 2, "f": "Estático", "t": "Oferta de fim de ano", "i": "Peça com selo de fim de ano.", "c": "Feche em dezembro e pague só 20% até as chaves.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c095", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-02", "p": 3, "f": "Vídeo", "t": "Apresentação privada", "i": "Convite elegante para uma visita exclusiva com hora marcada.", "c": "Uma apresentação feita só para você.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c096", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-02", "p": 3, "f": "Estático", "t": "Convite", "i": "Peça-convite com fundo escuro.", "c": "Agende sua apresentação privada.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c097", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-03", "p": 4, "f": "Carrossel", "t": "Plantas", "i": "Um card por planta com sugestão de uso (estudante, casal, investidor).", "c": "Encontre a planta certa para você.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c098", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-03", "p": 4, "f": "Estático", "t": "Aprovação", "i": "Peça para pais de aprovados.", "c": "Aprovou? Garanta o apê antes das aulas.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c099", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-03", "p": 5, "f": "Vídeo", "t": "Natal", "i": "Unidade decorada para o Natal.", "c": "Passe o Natal no seu novo endereço.", "cta": "Agende sua visita", "o": ""}, {"id": "c100", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-03", "p": 5, "f": "Estático", "t": "Natal", "i": "Foto da unidade com clima de fim de ano.", "c": "Mude antes do Natal.", "cta": "Agende sua visita", "o": ""}, {"id": "c101", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-04", "p": 6, "f": "Vídeo", "t": "Construir em 2027", "i": "Imagens de casas/projetos de referência + lote vazio.", "c": "Comece 2027 com o terreno da sua casa.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c102", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-04", "p": 6, "f": "Estático", "t": "Ano novo", "i": "Peça de virada de ano com o loteamento.", "c": "2027 começa no seu terreno.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c103", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-04", "p": 7, "f": "Carrossel", "t": "Plantas", "i": "Um card por planta.", "c": "Encontre a planta ideal.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c104", "m": "Dezembro", "w": "S08 · 30/11–04/12", "d": "2026-12-04", "p": 7, "f": "Estático", "t": "Natal", "i": "Peça de Natal.", "c": "Natal na casa nova.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c105", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-08", "p": 0, "f": "Vídeo", "t": "Últimas unidades", "i": "Convite para visita à obra/stand com cenas de clientes visitando; lettering de urgência.", "c": "Últimas unidades a preço de custo. Agende sua visita.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar estoque antes de subir"}, {"id": "c106", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-08", "p": 0, "f": "Carrossel", "t": "Linha do tempo", "i": "Etapas da obra até a entrega em 20 meses, com o que já foi feito.", "c": "Da fundação às chaves: veja onde estamos.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c107", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-08", "p": 1, "f": "Vídeo", "t": "Simulação", "i": "Tela de simulação: entrada + parcelas em torno de R$ 1 mil.", "c": "Quanto fica o seu apê no Sync? A gente simula agora.", "cta": "Simule sua condição no WhatsApp", "o": "Validar valores da condição com a construtora"}, {"id": "c108", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-08", "p": 1, "f": "Carrossel", "t": "Para investir", "i": "Perfil do inquilino da região e vantagens do studio para renda.", "c": "Studio é o investimento que trabalha por você.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c109", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-09", "p": 2, "f": "Carrossel", "t": "Plantas e diferenciais", "i": "Um card por planta + diferenciais do prédio.", "c": "Conheça os apartamentos do Einstein.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c110", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-09", "p": 2, "f": "Estático", "t": "Permuta fim de ano", "i": "Peça de virada de ano.", "c": "Troque o seu bem por um apê novo em 2027.", "cta": "Fale com um consultor no WhatsApp", "o": "Confirmar bens aceitos em permuta"}, {"id": "c111", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-09", "p": 3, "f": "Vídeo", "t": "Vista", "i": "Pôr do sol/vista do alto do empreendimento.", "c": "A vista que vai marcar os seus próximos anos.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c112", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-09", "p": 3, "f": "Carrossel", "t": "Plantas", "i": "Plantas com destaque para amplitude e privacidade.", "c": "Plantas pensadas para poucos.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c113", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-10", "p": 4, "f": "Vídeo", "t": "Entrega", "i": "Tour pela obra/apartamento na reta final.", "c": "Entrega no início de 2027. Garanta o seu.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c114", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-10", "p": 4, "f": "Carrossel", "t": "Checklist do calouro", "i": "Lista do que avaliar ao escolher onde morar.", "c": "Calouro: o que olhar antes de escolher onde morar.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c115", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-10", "p": 5, "f": "Carrossel", "t": "Pronto x planta", "i": "Vantagens de comprar pronto: sem espera, sem risco de obra.", "c": "Por que comprar pronto vale mais.", "cta": "Agende sua visita", "o": ""}, {"id": "c116", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-10", "p": 5, "f": "Estático", "t": "Última chance", "i": "Peça de urgência.", "c": "Última chance no Fiorello.", "cta": "Agende sua visita", "o": ""}, {"id": "c117", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-11", "p": 6, "f": "Vídeo", "t": "Consultor no lote", "i": "Consultor no loteamento apresenta tamanhos e condições.", "c": "Escolha o seu lote com quem conhece a região.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c118", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-11", "p": 6, "f": "Carrossel", "t": "Lotes disponíveis", "i": "Mapa do loteamento com lotes disponíveis.", "c": "Escolha o seu lote.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c119", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-11", "p": 7, "f": "Vídeo", "t": "Natal em casa nova", "i": "Apartamento decorado para o Natal.", "c": "Passe o Natal na sua casa nova.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c120", "m": "Dezembro", "w": "S09 · 07/12–11/12", "d": "2026-12-11", "p": 7, "f": "Carrossel", "t": "Localização", "i": "Mapa com pontos de interesse de Lajeado.", "c": "Tudo perto em Lajeado.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c121", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-15", "p": 0, "f": "Carrossel", "t": "Perfil x planta", "i": "Cards cruzando perfil (casal, família, quem recebe muito) com a planta ideal.", "c": "Alto padrão do tamanho da sua vida.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c122", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-15", "p": 0, "f": "Estático", "t": "Fim de ano", "i": "Peça de boas-festas com a fachada iluminada.", "c": "Em 2027, o endereço mais desejado de Santa Maria.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c123", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-15", "p": 1, "f": "Vídeo", "t": "Fim de ano", "i": "Antes x depois: comprovante de aluguel x parcela do próprio apê.", "c": "Comece 2027 pagando o que é seu, não o aluguel.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c124", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-15", "p": 1, "f": "Estático", "t": "Ano novo", "i": "Peça de virada de ano.", "c": "Ano novo, endereço novo.", "cta": "Simule sua condição no WhatsApp", "o": ""}, {"id": "c125", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-16", "p": 2, "f": "Vídeo", "t": "Fim de ano", "i": "Cenas da obra finalizando + mensagem de virada de ano.", "c": "Comece 2027 com a chave quase na mão.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c126", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-16", "p": 2, "f": "Carrossel", "t": "Perguntas frequentes", "i": "Dúvidas sobre financiamento nas chaves, prazos e documentação.", "c": "Financiamento nas chaves: tire suas dúvidas.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c127", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-16", "p": 3, "f": "Carrossel", "t": "Assinaturas", "i": "Parceiros do projeto (arquitetura, paisagismo, interiores).", "c": "Os nomes por trás de um projeto único.", "cta": "Agende uma apresentação privada", "o": "Confirmar nomes dos parceiros"}, {"id": "c128", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-16", "p": 3, "f": "Estático", "t": "Fim de ano", "i": "Peça de boas-festas sofisticada.", "c": "2027 merece um endereço à altura.", "cta": "Agende uma apresentação privada", "o": ""}, {"id": "c129", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-17", "p": 4, "f": "Vídeo", "t": "Aprovados", "i": "Vídeo para época de resultados de vestibular/SISU.", "c": "Passou na UFSM? O apê já está esperando.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c130", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-17", "p": 4, "f": "Estático", "t": "Presente", "i": "Peça de fim de ano para os pais.", "c": "O melhor presente de aprovação é um patrimônio.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c131", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-17", "p": 5, "f": "Vídeo", "t": "Última chamada", "i": "Corte rápido dos 2 apartamentos tipo e da cobertura + urgência.", "c": "Restam 2 apartamentos tipo e a cobertura.", "cta": "Agende sua visita", "o": "Pausar/atualizar se alguma unidade for vendida"}, {"id": "c132", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-17", "p": 5, "f": "Carrossel", "t": "Tour fotográfico", "i": "Fotos reais da unidade, ambiente por ambiente.", "c": "Veja cada detalhe do Fiorello.", "cta": "Agende sua visita", "o": ""}, {"id": "c133", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-18", "p": 6, "f": "Carrossel", "t": "Como comprar", "i": "Passo a passo da compra do lote.", "c": "Do primeiro contato à escritura.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c134", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-18", "p": 6, "f": "Estático", "t": "Região", "i": "Paisagem da 4ª Colônia.", "c": "Seu lote na 4ª Colônia.", "cta": "Fale com um consultor no WhatsApp", "o": ""}, {"id": "c135", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-18", "p": 7, "f": "Vídeo", "t": "Rotina", "i": "Cenas do dia a dia no condomínio.", "c": "A rotina que você merece começa aqui.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}, {"id": "c136", "m": "Dezembro", "w": "S10 · 14/12–18/12", "d": "2026-12-18", "p": 7, "f": "Estático", "t": "Fim de ano", "i": "Peça de oferta de fim de ano.", "c": "Condição de fim de ano: fale com a gente.", "cta": "Simule seu financiamento no WhatsApp", "o": ""}], "projs": [{"n": "Residencial Mont'Santo", "cta": "Fale com um consultor no WhatsApp", "b": ["Santa Maria · Av. Medianeira · alto padrão · apartamentos de 124 a 245 m²", "Obra a preço de custo; m² mais em conta da cidade no verdadeiro alto padrão; localização premium; entrega em 20 meses", "Obra a preço de custo (detalhar condição com a construtora)", "Sofisticado e direto, com argumento racional (preço/m²)", "Famílias e investidores de alto padrão de Santa Maria", "Confirmar como comunicar 'preço de custo' (regras da SPE) e o prazo de 20 meses"]}, {"n": "Sync Floriano", "cta": "Simule sua condição no WhatsApp", "b": ["Santa Maria · próximo ao Hospital de Caridade · studio, 1 e 2 dormitórios · obra em SPE", "Localização estratégica; condição flexível; tipologias compactas; segurança da SPE", "Até 40 meses; entrada de 10% ou a partir de R$ 10 mil; parcelas na faixa de R$ 1 mil (SUGESTÃO)", "Próximo e prático, focado em condição", "1º imóvel, profissionais da saúde, estudantes e investidores de aluguel", "Validar com a construtora a condição sugerida (entrada R$ 10 mil / parcelas ~R$ 1 mil) e o nome da construtora antes de publicar"]}, {"n": "Residencial Einstein", "cta": "Fale com um consultor no WhatsApp", "b": ["Muito próximo da entrega", "Quase pronto; várias formas de pagamento", "20% durante a obra e saldo financiado nas chaves; aceita permuta; aceita Plano Safra", "Consultivo, mostrando possibilidades", "Famílias, produtores rurais, quem tem bem para dar na troca", "Validar regras do Plano Safra para a compra, que bens entram na permuta e as unidades livres (há negociação de várias unidades em andamento)"]}, {"n": "Infinity Residence", "cta": "Agende uma apresentação privada", "b": ["Altíssimo padrão · um dos maiores empreendimentos do centro do estado", "Exclusividade, localização, produto único", "NÃO comunicar condição nem preço", "Aspiracional, minimalista, cinematográfico", "Alta renda, empresários, quem busca um imóvel único", "Confirmar nomes de parceiros do projeto antes do carrossel 'Assinaturas'"]}, {"n": "Residencial Amália", "cta": "Fale com um consultor no WhatsApp", "b": ["Próximo à UFSM · entrega no início do ano", "Localização perto da universidade; entrega no início do ano letivo; demanda de aluguel", "Fluxo direto com a construtora ou financiamento", "Informativo, falando com pais e investidores", "Pais de universitários, estudantes, investidores", "Confirmar mês de entrega e as condições do fluxo direto"]}, {"n": "Residencial Fiorello", "cta": "Agende sua visita", "b": ["Pronto · 2 apartamentos tipo e a cobertura disponíveis", "Exclusividade, produto único, pronto para morar, escassez real", "Aceita até 50% em permuta", "Elegante e com urgência", "Alta renda, quem tem imóvel para dar na troca", "Atualizar as peças de estoque (2 apartamentos tipo e a cobertura) assim que alguma unidade for vendida"]}, {"n": "Primado Residence", "cta": "Fale com um consultor no WhatsApp", "b": ["Lotes · 7 min do Recanto Maestro · região da 4ª Colônia", "Polo turístico o ano todo; infraestrutura 95% concluída; qualidade de vida", "Detalhar com a construtora (tamanhos e condição dos lotes)", "Inspirador, natureza e investimento", "Investidores, quem quer casa de campo/temporada, moradores da região", "Confirmar tamanhos de lote, condição de pagamento e o percentual de 95%"]}, {"n": "Moradas do Lago", "cta": "Simule seu financiamento no WhatsApp", "b": ["Lajeado · apartamentos prontos", "Pronto para morar; facilidade de compra", "Financiamento de até 100% pelo Banrisul; fluxo direto com a construtora; análise de permuta", "Acolhedor e prático", "Famílias e 1º imóvel em Lajeado", "Validar uso do nome/marca Banrisul nas peças e as regras do financiamento 100%"]}], "weeks": ["S01 · 12/10–16/10", "S02 · 19/10–23/10", "S03 · 26/10–30/10", "S04 · 02/11–06/11", "S05 · 09/11–13/11", "S06 · 16/11–20/11", "S07 · 23/11–27/11", "S08 · 30/11–04/12", "S09 · 07/12–11/12", "S10 · 14/12–18/12"]};
+const ST = [["A produzir","todo"],["Em produção","wip"],["Em aprovação","req"],["Aprovado","ok"],["No ar","live"],["Pausado","fut"]];
+const STC = Object.fromEntries(ST);
+const MESES = ["Outubro","Novembro","Dezembro"];
+const MABR = {Outubro:"Out",Novembro:"Nov",Dezembro:"Dez"};
+const DIAS = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+const DIAFIXO = ["Terça","Terça","Quarta","Quarta","Quinta","Quinta","Sexta","Sexta"];
+const BASE_N = D.projs.length;
+const dia = pi => D.projs[pi].dia || DIAFIXO[pi] || "Sexta";
+const pk = (p,pi) => p.custom ? "pj-"+p.pid : "pj"+pi;     // prefixo dos textos editáveis
+const pageId = p => p.custom ? "emp-"+p.pid : slug(p.n);
+const FOCO = {
+  Outubro:["Apresentação","Abrir com o argumento mais forte de cada projeto e descobrir qual ângulo gera lead mais barato."],
+  Novembro:["Aprofundamento","Produto, condição e prova. Vencedores de outubro seguem no ar e recebem mais verba."],
+  Dezembro:["Oferta de fim de ano","Condição de fim de ano, urgência e o gancho 'comece 2027'."]
+};
+const status = {}; // id -> status label
+const TX = {};  // chave -> texto editado pela equipe (coleção "txt")
+const V = (k,d) => typeof TX[k]==="string" ? TX[k] : d;
+const T = r => V(r.id+".t", r.t);
+const CH = r => V(r.id+".c", r.c);
+const edited = r => (r.id+".t") in TX || (r.id+".c") in TX;
+function E(k, d, cls){
+  const v = V(k, d ?? "");
+  if (!canWrite) return esc(v);
+  const mod = k in TX;
+  return `<span class="ed${mod?" mod":""}${cls?" "+cls:""}" contenteditable="plaintext-only" spellcheck="true" role="textbox" aria-label="Editar texto" data-key="${esc(k)}" data-def="${esc(d ?? "")}" title="${mod?"Editado pela equipe. Apague todo o texto para voltar ao original.":"Clique para editar"}">${esc(v)}</span>`;
+}
+let db = null, canWrite = false;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const pd = iso => { const [y,m,d] = iso.split("-").map(Number); return new Date(y, m-1, d); };
+const today = new Date(); today.setHours(0,0,0,0);
+const stOf = id => status[id] || "A produzir";
+const weekIdx = (() => { // semana corrente (índice em D.weeks) ou -1
+  const starts = [[2026,9,12],[2026,9,19],[2026,9,26],[2026,10,2],[2026,10,9],[2026,10,16],[2026,10,23],[2026,10,30],[2026,11,7],[2026,11,14]].map(a=>new Date(...a));
+  for (let i=starts.length-1;i>=0;i--) if (today >= starts[i]) { const end = new Date(starts[i]); end.setDate(end.getDate()+7); return today < end ? i : -1; }
+  return -1;
+})();
+const curMonth = today.getFullYear()===2026 && today.getMonth()>=9 ? MESES[today.getMonth()-9] : null;
+
+function selHTML(id){
+  const s = stOf(id);
+  return `<select class="sts ${STC[s]}" data-id="${id}" aria-label="Status do criativo" ${canWrite?"":"disabled"}>${ST.map(([l])=>`<option${l===s?" selected":""}>${l}</option>`).join("")}</select>`;
+}
+function counts(rows){
+  const c = Object.fromEntries(ST.map(([l])=>[l,0]));
+  rows.forEach(r => c[stOf(r.id)]++);
+  return c;
+}
+function progressCard(rows, label){
+  const c = counts(rows), n = rows.length;
+  const live = c["No ar"], appr = c["Aprovado"];
+  const pct = n ? Math.round(live/n*100) : 0;
+  return `<div class="wkcard" data-prog>
+    <div class="wkcard-top"><div><span class="wk-lbl">${esc(label)}</span><b class="pct">${pct}%</b><span class="wk-sub">no ar</span></div>
+    <div class="wk-counts">${ST.map(([l,k])=>`<span><i class="c-${k}"></i><b>${c[l]}</b> ${l.toLowerCase()}</span>`).join("")}</div></div>
+    <div class="wkbar" role="img" aria-label="${live} de ${n} criativos no ar, ${appr} aprovados"><i class="a" style="width:${n?live/n*100:0}%"></i><i class="b" style="width:${n?appr/n*100:0}%"></i></div>
+    <p class="small" style="margin:10px 0 0">Barra escura: criativos no ar. Barra clara: aprovados aguardando subida. ${canWrite?"Altere o status em cada peça; a equipe toda vê na hora.":""}</p>
+  </div>`;
+}
+
+/* ---------- páginas ---------- */
+const pages = []; // {id, ch, t, html}
+let byProj = D.projs.map((_,i)=>D.rows.filter(r=>r.p===i));
+
+pages.push({id:"inicio", ch:"Início", t:"Capa", pn:"·", html:()=>`
+  <section class="cover">
+    <p class="eyebrow">Master Plan · GO Company 360°</p>
+    <h1>Tráfego<br>Pago</h1>
+    <p class="sub">Carteira de estoque · Outubro a Dezembro de 2026</p>
+    <p class="sub2">Cronograma de criativos para os 8 empreendimentos da GO: o que sobe em cada semana, a ideia de cada peça, a chamada principal e o status de produção.</p>
+    <a class="btn" href="#visao">Abrir o plano →</a>
+    <div class="covergrid">${D.projs.map((p,i)=>`<a href="#${pageId(p)}">${esc(p.n)}<small>${dia(i)} · ${byProj[i].length} peças</small></a>`).join("")}</div>
+    <span class="bigq" aria-hidden="true">Q4</span>
+  </section>`});
+
+pages.push({id:"visao", ch:"O plano", t:"Visão geral", html:()=>{
+  const tot = f => D.rows.filter(r=>r.f===f).length;
+  const cell = (rows,f) => rows.filter(r=>r.f===f).length;
+  return `${ph("O plano","Visão geral","1")}
+  <p class="lead">Todos os empreendimentos estão em estoque. Cada um recebe 2 vídeos por mês e um mix de carrosséis e estáticos, com entrada distribuída ao longo das semanas para a produção não acumular.</p>
+  <div class="facts">
+    <div><b>${D.projs.length}</b><span>empreendimentos em estoque</span></div>
+    <div><b>${D.rows.length}</b><span>criativos novos até dezembro</span></div>
+    <div><b>${tot("Vídeo")}</b><span>vídeos (2 por projeto/mês)</span></div>
+    <div><b>${D.weeks.length}</b><span>semanas de subida, de 12/10 a 18/12</span></div>
+  </div>
+  ${progressCard(D.rows,"Andamento geral do trimestre")}
+  <h2>Mix por mês, por empreendimento</h2>
+  <div class="scroll"><table><thead><tr><th>Mês</th><th>Foco</th><th class="c">Vídeos</th><th class="c">Carrosséis</th><th class="c">Estáticos</th><th class="c">Total</th><th class="c">Carteira</th></tr></thead><tbody>
+  ${MESES.map(m=>{const r=byProj[0].filter(x=>x.m===m);const all=D.rows.filter(x=>x.m===m);return `<tr><td class="k">${m}</td><td>${FOCO[m][0]}</td><td class="c">${cell(r,"Vídeo")}</td><td class="c">${cell(r,"Carrossel")}</td><td class="c">${cell(r,"Estático")}</td><td class="c"><b>${r.length}</b></td><td class="c">${all.length}</td></tr>`}).join("")}
+  <tr class="tot"><td>Trimestre</td><td></td><td class="c">${cell(byProj[0],"Vídeo")}</td><td class="c">${cell(byProj[0],"Carrossel")}</td><td class="c">${cell(byProj[0],"Estático")}</td><td class="c">${byProj[0].length}</td><td class="c">${D.rows.length}</td></tr>
+  </tbody></table></div>
+  <h2>Os três meses</h2>
+  <ul class="road">${MESES.map((m,i)=>`<li><span class="dot${m===curMonth?" now":""}">${MABR[m]}</span><div><h3>${m} · ${FOCO[m][0]} ${m===curMonth?'<span class="st wip">Mês atual</span>':""}</h3><p>${FOCO[m][1]}</p></div></li>`).join("")}</ul>
+  <h2>Formatos</h2>
+  <div class="two">
+    <div class="kv"><small>Vídeo</small><p>Reels/Stories 9:16 de 15 a 30 segundos, com versão 4:5 para o feed. Alcance e desejo: tour, localização, consultor explicando a condição.</p></div>
+    <div class="kv"><small>Carrossel</small><p>3 a 6 cards. Consideração e lead: plantas, diferenciais, passo a passo de pagamento, comparativos.</p></div>
+    <div class="kv"><small>Estático</small><p>Imagem única 1:1 ou 4:5. Conversão e oferta: condição, urgência, últimas unidades. Também usado em remarketing.</p></div>
+    <div class="kv"><small>CTA</small><p>WhatsApp do consultor em quase todos. Infinity e Fiorello convidam o cliente para visita ou apresentação.</p></div>
+  </div>`;
+}});
+
+pages.push({id:"fluxo", ch:"O plano", t:"Fluxo semanal", html:()=>`
+  ${ph("O plano","Fluxo semanal","2")}
+  <p class="lead">Cada empreendimento sobe peças num dia fixo da semana. Assim a carteira inteira coloca 5 a 6 vídeos por semana no ar, sem pico de produção.</p>
+  <div class="facts">
+    <div><b>Ter</b><span>Mont'Santo e Sync Floriano</span></div>
+    <div><b>Qua</b><span>Einstein e Infinity</span></div>
+    <div><b>Qui</b><span>Amália e Fiorello</span></div>
+    <div><b>Sex</b><span>Primado e Moradas do Lago</span></div>
+  </div>
+  <div class="legend"><span><span class="dots"><i class="Vídeo"></i></span>Vídeo</span><span><span class="dots"><i class="Carrossel"></i></span>Carrossel</span><span><span class="dots"><i class="Estático"></i></span>Estático</span>${weekIdx>=0?'<span>Coluna destacada: semana atual</span>':""}</div>
+  <div class="scroll"><table class="flow"><thead><tr><th>Empreendimento</th>${D.weeks.map((w,i)=>`<th class="c${i===weekIdx?" now":""}">${esc(w.split(" · ")[0])}<br><span class="small">${esc(w.split(" · ")[1])}</span></th>`).join("")}</tr></thead><tbody>
+  ${D.projs.map((p,pi)=>`<tr><td class="k"><a href="#${pageId(p)}" style="text-decoration:none">${esc(p.n)}</a><br><span class="small">${dia(pi)}</span></td>${D.weeks.map((w,i)=>{const rs=byProj[pi].filter(r=>r.w===w);return `<td class="c${i===weekIdx?" now":""}"><span class="dots" title="${rs.map(r=>r.f).join(", ")}">${rs.map(r=>`<i class="${r.f}"></i>`).join("")}</span></td>`}).join("")}</tr>`).join("")}
+  <tr class="tot"><td>Vídeos na semana</td>${D.weeks.map((w,i)=>`<td class="c${i===weekIdx?" now":""}">${D.rows.filter(r=>r.w===w&&r.f==="Vídeo").length}</td>`).join("")}</tr>
+  <tr class="tot"><td>Total de peças</td>${D.weeks.map((w,i)=>`<td class="c${i===weekIdx?" now":""}">${D.rows.filter(r=>r.w===w).length}</td>`).join("")}</tr>
+  </tbody></table></div>
+  <div class="note"><p><strong>Prazo de aprovação:</strong> cada peça precisa estar aprovada 2 dias úteis antes da data de subida. Feriados nacionais (Finados, Consciência Negra, Natal) já foram considerados: quando a data cai num feriado, a peça sobe no dia útil anterior.</p></div>`});
+
+pages.push({id:"regras", ch:"O plano", t:"Regras de gestão", html:()=>`
+  ${ph("O plano","Regras de gestão","3")}
+  <p class="lead">O calendário define as peças novas. As regras abaixo definem o que fica no ar, o que sai e quando redistribuir.</p>
+  <ul class="req-list">
+    <li><span><b>Vencedores continuam rodando</b><small>Os números do calendário são só criativos novos. Peças com bom custo por lead seguem no ar e recebem mais verba.</small></span><span class="st ok">Sempre</span></li>
+    <li><span><b>Pausar o que não performa</b><small>Peça com custo por lead 30% acima da média do projeto, depois de cerca de 7 dias de veiculação.</small></span><span class="st todo">7 dias</span></li>
+    <li><span><b>Trocar por fadiga</b><small>Quando a frequência passar de 3 no público frio, entra a próxima peça do calendário.</small></span><span class="st wip">Frequência 3+</span></li>
+    <li><span><b>Revisar o mix na virada do mês</b><small>Com o relatório de CPL, CTR e leads qualificados, mover peças para os projetos com menor custo por lead e mais estoque.</small></span><span class="st req">Mensal</span></li>
+    <li><span><b>Infinity Residence sem preço</b><small>Nenhuma peça cita valor ou condição. A comunicação é de exclusividade, localização e produto único.</small></span><span class="st fut">Regra fixa</span></li>
+    <li><span><b>Fiorello e Mont'Santo com estoque real</b><small>Peças de "últimas unidades" (Mont'Santo) e "2 apartamentos tipo e a cobertura" (Fiorello) são atualizadas ou pausadas assim que o estoque mudar.</small></span><span class="st todo">Imediato</span></li>
+  </ul>`});
+
+function projPage(p){
+  return {sec:"tr", id:pageId(p), ch:"Empreendimentos", t:p.n, proj:true, html:()=>{
+    const pi = D.projs.indexOf(p), K = pk(p,pi);
+    const rows = byProj[pi], b = p.b;
+    const n = f => rows.filter(r=>r.f===f).length;
+    return `${ph("Empreendimentos", p.n, "", E(K+".b0", b[0]))}
+    ${p.custom?`<div class="note"><p><strong>Empreendimento novo.</strong> A estrutura já vem montada como a dos demais: 17 peças com datas, formatos e status. Clique em cada texto para preencher; o que você escrever aparece também no Calendário completo.</p>${canWrite?`<p style="margin-top:10px"><button type="button" class="xbtn" data-delproj="${p.pid}">Remover empreendimento</button></p>`:""}</div>`:""}
+    <p class="lead">${E(K+".b1", b[1])}</p>
+    <div class="facts"><div><b>${n("Vídeo")}</b><span>vídeos</span></div><div><b>${n("Carrossel")}</b><span>carrosséis</span></div><div><b>${n("Estático")}</b><span>estáticos</span></div><div><b>${dia(pi)}</b><span>dia fixo de subida</span></div></div>
+    <div class="two">
+      <div class="kv"><small>Condição comercial</small><p>${E(K+".b2", b[2])}</p></div>
+      <div class="kv"><small>Tom de comunicação</small><p>${E(K+".b3", b[3])}</p></div>
+      <div class="kv"><small>Público principal</small><p>${E(K+".b4", b[4])}</p></div>
+      <div class="kv"><small>CTA padrão</small><p>${E(K+".cta", p.cta)}</p></div>
+    </div>
+    <div class="note warn"><p><strong>Validar antes de publicar:</strong> ${E(K+".b5", b[5])}</p></div>
+    ${progressCard(rows, p.n + " · andamento")}
+    ${MESES.map(m=>`<h2>${m} · ${FOCO[m][0]}</h2><ul class="week">${rows.filter(r=>r.m===m).map(itemHTML).join("")}</ul>`).join("")}`;
+  }};
+}
+D.projs.forEach(p=>pages.push(projPage(p)));
+pages.push({id:"novo-empreendimento", ch:"Empreendimentos", t:"+ Novo empreendimento", html:()=>`
+  ${ph("Empreendimentos","Novo empreendimento","")}
+  <p class="lead">Crie um empreendimento com a mesma estrutura dos demais: página própria, 17 peças distribuídas de outubro a dezembro, status e textos editáveis. Depois é só preencher passo a passo.</p>
+  ${canWrite?`<form class="addf" id="addProj">
+    <label>Nome do empreendimento<input class="inp" id="pNome" required placeholder="Ex.: Residencial Aurora"></label>
+    <label>Dia fixo de subida<select class="inp" id="pDia"><option>Terça</option><option>Quarta</option><option>Quinta</option><option selected>Sexta</option></select></label>
+    <label>Cidade e produto<input class="inp" id="pLoc" placeholder="Ex.: Santa Maria · apartamentos de 2 dorm."></label>
+    <button class="sbtn" type="submit">Criar empreendimento</button>
+  </form>`:`<div class="empty">Para criar empreendimentos, abra o painel da equipe.</div>`}
+  <h2>O que vem pronto</h2>
+  <div class="two">
+    <div class="kv"><small>Página do empreendimento</small><p>Localização, argumentos, condição comercial, tom, público, CTA e o que validar, todos editáveis.</p></div>
+    <div class="kv"><small>Cronograma de criativos</small><p>2 vídeos por mês + carrosséis e estáticos: 6 em outubro, 5 em novembro e 6 em dezembro, no dia fixo escolhido.</p></div>
+    <div class="kv"><small>Calendário completo</small><p>As 17 peças entram no calendário, no fluxo semanal e nos filtros, com status igual aos demais.</p></div>
+    <div class="kv"><small>Textos de cada peça</small><p>Tema, ideia, chamada e CTA começam em branco para você preencher.</p></div>
+  </div>
+  ${D.projs.some(p=>p.custom)?`<h2>Empreendimentos criados</h2><ul class="req-list">${D.projs.filter(p=>p.custom).map(p=>`<li><span><b><a href="#${pageId(p)}">${esc(p.n)}</a></b><small>${esc(p.dia)} · 17 peças</small></span><span class="st ok">Ativo</span></li>`).join("")}</ul>`:""}`});
+const WEEK_MON = ["2026-10-12","2026-10-19","2026-10-26","2026-11-02","2026-11-09","2026-11-16","2026-11-23","2026-11-30","2026-12-07","2026-12-14"];
+const HOLI = ["2026-10-12","2026-11-02","2026-11-15","2026-11-20","2026-12-25"];
+const PLAN = [ // semana -> peças (mesmo organograma dos demais)
+  ["V","E"],["C","E"],["V","C"], ["V"],["C","E"],["V"],["C"], ["V","E"],["C","E"],["V","C"]];
+const FMTN = {V:"Vídeo",C:"Carrossel",E:"Estático"};
+function customRows(p, pi){
+  const off = {"Terça":1,"Quarta":2,"Quinta":3,"Sexta":4}[p.dia] || 4;
+  const rows = []; let k = 0;
+  PLAN.forEach((ws, wi)=>{
+    const d = pd(WEEK_MON[wi]); d.setDate(d.getDate()+off);
+    let iso = d.toISOString().slice(0,10);
+    while (HOLI.includes(iso)){ d.setDate(d.getDate()-1); iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+    iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+    ws.forEach(t=>{ k++; rows.push({id:`${p.pid}-${String(k).padStart(2,"0")}`, m: wi<3?"Outubro":wi<7?"Novembro":"Dezembro", w:D.weeks[wi], d:iso, p:pi, f:FMTN[t],
+      t:"Tema a definir", i:"Descreva aqui a ideia do criativo.", c:"Escreva aqui a chamada principal.", cta:"Fale com um consultor no WhatsApp", o:""}); });
+  });
+  return rows;
+}
+function syncProjects(list){
+  D.projs.splice(BASE_N); D.rows = D.rows.filter(r=>r.p < BASE_N);
+  for (let i = pages.length-1; i>=0; i--) if (pages[i].proj && pages[i].id.startsWith("emp-")) pages.splice(i,1);
+  list.sort((a,b)=>(a.criado||0)-(b.criado||0)).forEach(doc=>{
+    const p = {n:doc.nome, dia:doc.dia||"Sexta", custom:true, pid:doc.id, cta:"Fale com um consultor no WhatsApp",
+      b:[doc.loc || "Cidade · localização · produto", "Argumentos-chave do empreendimento.", "Condição comercial a definir.", "Tom de comunicação a definir.", "Público principal a definir.", "O que validar com a construtora antes de publicar."]};
+    const pi = D.projs.push(p) - 1;
+    D.rows.push(...customRows(p, pi));
+    const at = pages.findIndex(x=>x.id==="novo-empreendimento");
+    pages.splice(at, 0, projPage(p));
+  });
+  D.rows.sort((a,b)=>a.d.localeCompare(b.d) || a.p-b.p);
+  byProj = D.projs.map((_,i)=>D.rows.filter(r=>r.p===i));
+  pages.forEach(pg=>{ if (!main.querySelector(`[data-id="${pg.id}"]`)) main.insertAdjacentHTML("beforeend", `<article class="page" data-id="${pg.id}"></article>`); });
+  main.querySelectorAll(".page").forEach(a=>{ if (!pages.some(pg=>pg.id===a.dataset.id)) a.remove(); });
+  if (curSec==="tr") buildToc("tr");
+  const want = location.hash.slice(1);
+  if (want!==cur && pages.some(pg=>pg.id===want)) { go(); return false; }
+  if (!pages.some(pg=>pg.id===cur)) { location.hash = "#novo-empreendimento"; return false; }
+  return true;
+}
+
+pages.push({id:"calendario", ch:"Gestão", t:"Calendário completo", html:()=>`
+  ${ph("Gestão","Calendário completo","12")}
+  <p class="lead">Todas as ${D.rows.length} peças em ordem de subida. Filtre por mês, formato, status ou empreendimento. O tema e a chamada de cada peça podem ser editados direto na tabela; a alteração vale para o painel inteiro.</p>
+  ${progressCard(D.rows,"Trimestre · todos os empreendimentos")}
+  <div class="filters" data-f="m"><span class="lbl">Mês</span>${["Todos",...MESES].map((m,i)=>`<button type="button" data-v="${m}" aria-pressed="${i===0}">${m}</button>`).join("")}</div>
+  <div class="filters" data-f="f"><span class="lbl">Formato</span>${["Todos","Vídeo","Carrossel","Estático"].map((m,i)=>`<button type="button" data-v="${m}" aria-pressed="${i===0}">${m}</button>`).join("")}</div>
+  <div class="filters" data-f="s"><span class="lbl">Status</span>${["Todos",...ST.map(s=>s[0])].map((m,i)=>`<button type="button" data-v="${m}" aria-pressed="${i===0}">${m}</button>`).join("")}</div>
+  <div class="filters people" data-f="p"><span class="lbl">Projeto</span>${["Todos",...D.projs.map(p=>p.n)].map((m,i)=>`<button type="button" data-v="${i-1}" aria-pressed="${i===0}">${esc(m.replace("Residencial ",""))}</button>`).join("")}</div>
+  <p class="small" id="calN"></p>
+  <div class="scroll"><table><thead><tr><th>Data</th><th>Empreendimento</th><th>Formato</th><th>Tema e chamada</th><th>Status</th></tr></thead><tbody id="calB"></tbody></table></div>`});
+
+pages.push({id:"validar", ch:"Gestão", t:"Pontos a validar", html:()=>{
+  const flagged = D.rows.filter(r=>r.o);
+  return `${ph("Gestão","Pontos a validar","13")}
+  <p class="lead">Informações que precisam de confirmação da construtora ou do jurídico antes de a peça subir.</p>
+  <h2>Por empreendimento</h2>
+  <ul class="req-list">${D.projs.map((p,pi)=>`<li><span><b>${esc(p.n)}</b><small>${E(pk(p,pi)+".b5", p.b[5])}</small></span><span class="st req">Validar</span></li>`).join("")}</ul>
+  <h2>Peças com observação (${flagged.length})</h2>
+  <div class="scroll"><table><thead><tr><th>Data</th><th>Empreendimento</th><th>Peça</th><th>O que validar</th><th>Status</th></tr></thead><tbody>
+  ${flagged.map(r=>`<tr class="calrow"><td class="num">${fmtD(r.d)}</td><td class="pj">${esc(D.projs[r.p].n)}</td><td><span class="fmt ${r.f}">${r.f}</span><br>${E(r.id+".c", r.c)}</td><td>${E(r.id+".o", r.o)}</td><td>${selHTML(r.id)}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}});
+
+function gcal(title, iso, details, loc){
+  const d = pd(iso), n = new Date(d); n.setDate(d.getDate()+1);
+  const f = x => `${x.getFullYear()}${String(x.getMonth()+1).padStart(2,"0")}${String(x.getDate()).padStart(2,"0")}`;
+  const q = new URLSearchParams({action:"TEMPLATE", text:title, dates:`${f(d)}/${f(n)}`, details:details + "\n\nMaster Plan GO Company", ctz:"America/Sao_Paulo"});
+  if (loc) q.set("location", loc);
+  return `<a class="gcal" href="https://calendar.google.com/calendar/render?${q.toString()}" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="12" rx="2"/><path d="M1.5 6.5h13M5 1v3M11 1v3"/></svg>Adicionar ao Google Agenda</a>`;
+}
+function gcalTr(r){
+  const p = D.projs[r.p];
+  return gcal(`[Tráfego] ${r.f} · ${p.n}: ${T(r)}`, r.d,
+    `Empreendimento: ${p.n}\nFormato: ${r.f}\nTema: ${T(r)}\nIdeia: ${V(r.id+".i", r.i)}\nChamada: ${CH(r)}\nCTA: ${V(r.id+".cta", r.cta)}\nStatus: ${stOf(r.id)}`);
+}
+function fmtD(iso){ const d=pd(iso); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`; }
+let CURNUM = "";
+function ph(ch,t,num,tag){ return `<header class="ph"><p class="chap">${esc(ch)}</p><h1>${esc(t)}</h1>${tag?`<p class="tagl">${tag}</p>`:""}<span class="bignum" aria-hidden="true">${CURNUM}</span></header>`; }
+function itemHTML(r){
+  const d = pd(r.d);
+  const isNow = weekIdx>=0 && r.w===D.weeks[weekIdx];
+  return `<li${isNow?' class="isnow"':""}><div class="d">${String(d.getDate()).padStart(2,"0")}<small>${DIAS[d.getDay()]} · ${MABR[r.m]}</small></div>
+    <div><h3><span class="fmt ${r.f}">${r.f}</span>${E(r.id+".t", r.t)}</h3><p>${E(r.id+".i", r.i)}</p>
+    <div class="who"><small>Chamada principal</small>${E(r.id+".c", r.c)}</div>
+    <p class="small" style="margin:8px 0 0">CTA: ${E(r.id+".cta", r.cta)}</p>${gcalTr(r)}${(r.o||V(r.id+".o",""))?`<div class="obs">⚑ ${E(r.id+".o", r.o)}</div>`:""}</div>${selHTML(r.id)}</li>`;
+}
+
+/* ---------- calendário: filtros ---------- */
+const flt = {m:"Todos",f:"Todos",s:"Todos",p:"-1"};
+function renderCal(){
+  const B = document.getElementById("calB"); if (!B) return;
+  const rows = D.rows.filter(r=>(flt.m==="Todos"||r.m===flt.m)&&(flt.f==="Todos"||r.f===flt.f)&&(flt.s==="Todos"||stOf(r.id)===flt.s)&&(flt.p==="-1"||r.p===+flt.p));
+  document.getElementById("calN").textContent = `${rows.length} ${rows.length===1?"peça":"peças"} no filtro atual.`;
+  B.innerHTML = rows.length ? rows.map(r=>{const d=pd(r.d);return `<tr class="calrow"><td class="num">${fmtD(r.d)}<br><span class="small">${DIAS[d.getDay()]}</span></td><td class="pj">${esc(D.projs[r.p].n)}</td><td><span class="fmt ${r.f}">${r.f}</span></td><td class="ch">${canWrite?`<span class="edl">Tema</span>${E(r.id+".t", r.t, "box")}<span class="edl">Chamada</span>${E(r.id+".c", r.c, "box")}${edited(r)?`<span class="edtag">Editado · <button type="button" class="lnk" data-reset="${r.id}">voltar ao original</button></span>`:""}`:`${esc(T(r))}<br><span class="small">${esc(CH(r))}</span>`}</td><td>${selHTML(r.id)}<br>${gcalTr(r)}</td></tr>`}).join("")
+    : `<tr><td colspan="5" class="small">Nenhuma peça com esses filtros.</td></tr>`;
+}
+
+/* =========================================================
+   SEÇÃO 2 · IMOBILIÁRIAS
+   ========================================================= */
+pages.forEach(p => p.sec = "tr");
+const IM = {"canais": [{"n": "Residencial Mont'Santo", "pres": true, "dig": true, "quem": "Amanda", "foco": "Outubro: mutirão de visitas à obra com todas as imobiliárias possíveis. Nov e Dez: 2 turmas por mês.", "cond": "Obra a preço de custo, entrega em 20 meses, 124 a 245 m², Av. Medianeira."}, {"n": "Residencial Einstein", "pres": true, "dig": true, "quem": "Amanda", "foco": "1 turma por mês na obra, com treino de permuta e Plano Safra para os corretores.", "cond": "20% durante a obra e saldo nas chaves; aceita permuta e Plano Safra."}, {"n": "Residencial Amália", "pres": true, "dig": true, "quem": "Amanda", "foco": "1 turma por mês (2 em dezembro) para a reta final antes do ano letivo da UFSM.", "cond": "Fluxo direto com a construtora ou financiamento; entrega no início do ano."}, {"n": "Residencial Fiorello", "pres": true, "dig": true, "quem": "Amanda", "foco": "1 apresentação por mês aberta a todo o mercado imobiliário.", "cond": "2 apartamentos tipo e a cobertura disponíveis; aceita até 50% em permuta."}, {"n": "Infinity Residence", "pres": true, "dig": true, "quem": "Amanda", "foco": "1 apresentação por mês aberta a todos os corretores, sem falar de preço.", "cond": "Altíssimo padrão: exclusividade, localização e produto único. Não comunicar preço."}, {"n": "Moradas do Lago", "pres": true, "dig": true, "quem": "A definir", "foco": "3 viagens por mês a Lajeado, dia inteiro: imobiliárias pela manhã, empreendimento à tarde.", "cond": "Pronto; financiamento até 100% Banrisul, fluxo direto e análise de permuta."}, {"n": "Primado Residence", "pres": false, "dig": true, "quem": "Amanda", "foco": "Digital: grupos de WhatsApp e contato direto. Visitas pontuais aos sábados para corretores parceiros interessados.", "cond": "Lotes a 7 min do Recanto Maestro; infraestrutura 95% concluída."}, {"n": "Sync Floriano", "pres": false, "dig": false, "quem": "Interno", "foco": "Não vai para as imobiliárias por enquanto: obra na planta, sem projeto pronto.", "cond": "Trabalho interno da equipe GO."}], "agenda": [{"d": "2026-10-13", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag01"}, {"d": "2026-10-14", "tipo": "Apresentação", "p": "Infinity + Fiorello", "desc": "Rota alto padrão: apresentação do Infinity às 10h e do Fiorello às 11h30, abertas a todo o mercado.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag02"}, {"d": "2026-10-15", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag03"}, {"d": "2026-10-20", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag04"}, {"d": "2026-10-21", "tipo": "Visita à obra", "p": "Residencial Einstein", "desc": "Turma no Einstein com treino de permuta e Plano Safra.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag05"}, {"d": "2026-10-22", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag06"}, {"d": "2026-10-24", "tipo": "Sábado pontual", "p": "Primado Residence", "desc": "Visita ao loteamento para corretores parceiros que pedirem. Só acontece se houver interessados confirmados até quinta.", "pub": "Corretores parceiros interessados", "quem": "Amanda", "id": "ag07"}, {"d": "2026-10-27", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag08"}, {"d": "2026-10-28", "tipo": "Visita à obra", "p": "Residencial Amália", "desc": "Turma no Amália: localização UFSM e entrega no início do ano.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag09"}, {"d": "2026-10-29", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Mutirão de outubro: turma de imobiliárias visitando a obra. Amanda confirma presença por telefone na semana anterior.", "pub": "Imobiliárias de Santa Maria (gestores e corretores)", "quem": "Amanda", "id": "ag10"}, {"d": "2026-11-03", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Turma na obra para quem não veio no mutirão de outubro.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag11"}, {"d": "2026-11-04", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café com 2 imobiliárias do grupo A: kit dos projetos e condição do mês.", "pub": "Gestores e corretores · grupo A", "quem": "Amanda", "id": "ag12"}, {"d": "2026-11-05", "tipo": "Visita à obra", "p": "Residencial Einstein", "desc": "Turma no Einstein + treino de condições (permuta, Plano Safra, saldo nas chaves).", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag13"}, {"d": "2026-11-10", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café com 2 imobiliárias do grupo B.", "pub": "Gestores e corretores · grupo B", "quem": "Amanda", "id": "ag14"}, {"d": "2026-11-11", "tipo": "Apresentação", "p": "Infinity + Fiorello", "desc": "Rota alto padrão: Infinity e Fiorello abertos a todo o mercado.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag15"}, {"d": "2026-11-12", "tipo": "Visita à obra", "p": "Residencial Amália", "desc": "Turma no Amália com foco em investidor e pais de universitários.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag16"}, {"d": "2026-11-17", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Turma na obra do Mont'Santo.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag17"}, {"d": "2026-11-18", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café com 2 imobiliárias (grupo A ou B, conforme retorno).", "pub": "Gestores e corretores", "quem": "Amanda", "id": "ag18"}, {"d": "2026-11-21", "tipo": "Sábado pontual", "p": "Primado Residence", "desc": "Visita ao loteamento para corretores parceiros que pedirem. Só acontece se houver interessados confirmados até quinta.", "pub": "Corretores parceiros interessados", "quem": "Amanda", "id": "ag19"}, {"d": "2026-11-24", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café com 2 imobiliárias que ainda não visitaram nenhuma obra.", "pub": "Gestores e corretores", "quem": "Amanda", "id": "ag20"}, {"d": "2026-12-01", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Turma na obra: condição de fim de ano.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag21"}, {"d": "2026-12-02", "tipo": "Visita à obra", "p": "Residencial Amália", "desc": "Turma no Amália: reta final antes do ano letivo.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag22"}, {"d": "2026-12-03", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café com 2 imobiliárias: condições de fim de ano de todos os projetos.", "pub": "Gestores e corretores", "quem": "Amanda", "id": "ag23"}, {"d": "2026-12-09", "tipo": "Apresentação", "p": "Infinity + Fiorello", "desc": "Rota alto padrão: Infinity e Fiorello.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag24"}, {"d": "2026-12-10", "tipo": "Visita à obra", "p": "Residencial Einstein", "desc": "Turma no Einstein: condição de fim de ano.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag25"}, {"d": "2026-12-12", "tipo": "Sábado pontual", "p": "Primado Residence", "desc": "Visita ao loteamento para corretores parceiros que pedirem. Só acontece se houver interessados confirmados até quinta.", "pub": "Corretores parceiros interessados", "quem": "Amanda", "id": "ag26"}, {"d": "2026-12-15", "tipo": "Visita à obra", "p": "Residencial Mont'Santo", "desc": "Última turma do ano no Mont'Santo.", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag27"}, {"d": "2026-12-16", "tipo": "Visita à obra", "p": "Residencial Amália", "desc": "Segunda turma do mês no Amália (aprovados UFSM/SISU).", "pub": "Corretores de todas as imobiliárias", "quem": "Amanda", "id": "ag28"}, {"d": "2026-12-17", "tipo": "Visita à imobiliária", "p": "Carteira", "desc": "Café de fechamento do ano com 2 imobiliárias que mais movimentaram.", "pub": "Gestores e corretores", "quem": "Amanda", "id": "ag29"}], "lajeado": [{"id": "lj01", "d": "2026-10-14"}, {"id": "lj02", "d": "2026-10-21"}, {"id": "lj03", "d": "2026-10-28"}, {"id": "lj04", "d": "2026-11-04"}, {"id": "lj05", "d": "2026-11-11"}, {"id": "lj06", "d": "2026-11-25"}, {"id": "lj07", "d": "2026-12-02"}, {"id": "lj08", "d": "2026-12-09"}, {"id": "lj09", "d": "2026-12-16"}], "posts": [{"d": "2026-10-13", "tipo": "Oportunidade", "p": "Residencial Mont'Santo", "txt": "Oportunidade de trabalho da semana: obra a preço de custo, o m² mais em conta da cidade no verdadeiro alto padrão, entrega em 20 meses. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa01"}, {"d": "2026-10-14", "tipo": "Produto em destaque", "p": "Residencial Einstein", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (20% durante a obra e saldo nas chaves, aceita permuta e Plano Safra).", "id": "wa02"}, {"d": "2026-10-16", "tipo": "Institucional GO", "p": "Residencial Fiorello", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (2 apartamentos tipo e a cobertura disponíveis, com até 50% em permuta). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa03"}, {"d": "2026-10-19", "tipo": "Oportunidade", "p": "Residencial Amália", "txt": "Oportunidade de trabalho da semana: pagamento direto com a construtora ou financiamento, entrega no início do ano letivo da UFSM. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa04"}, {"d": "2026-10-21", "tipo": "Produto em destaque", "p": "Infinity Residence", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (altíssimo padrão, exclusividade e localização única).", "id": "wa05"}, {"d": "2026-10-23", "tipo": "Institucional GO", "p": "Primado Residence", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (lotes a 7 minutos do Recanto Maestro, com 95% da infraestrutura pronta). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa06"}, {"d": "2026-10-26", "tipo": "Oportunidade", "p": "Moradas do Lago", "txt": "Oportunidade de trabalho da semana: pronto em Lajeado, financiamento até 100% Banrisul, fluxo direto e análise de permuta. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa07"}, {"d": "2026-10-28", "tipo": "Produto em destaque", "p": "Residencial Mont'Santo", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (obra a preço de custo, o m² mais em conta da cidade no verdadeiro alto padrão, entrega em 20 meses).", "id": "wa08"}, {"d": "2026-10-30", "tipo": "Institucional GO", "p": "Residencial Einstein", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (20% durante a obra e saldo nas chaves, aceita permuta e Plano Safra). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa09"}, {"d": "2026-11-03", "tipo": "Oportunidade", "p": "Residencial Fiorello", "txt": "Oportunidade de trabalho da semana: 2 apartamentos tipo e a cobertura disponíveis, com até 50% em permuta. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa10"}, {"d": "2026-11-04", "tipo": "Produto em destaque", "p": "Residencial Amália", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (pagamento direto com a construtora ou financiamento, entrega no início do ano letivo da UFSM).", "id": "wa11"}, {"d": "2026-11-06", "tipo": "Institucional GO", "p": "Infinity Residence", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (altíssimo padrão, exclusividade e localização única). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa12"}, {"d": "2026-11-09", "tipo": "Oportunidade", "p": "Primado Residence", "txt": "Oportunidade de trabalho da semana: lotes a 7 minutos do Recanto Maestro, com 95% da infraestrutura pronta. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa13"}, {"d": "2026-11-11", "tipo": "Produto em destaque", "p": "Moradas do Lago", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (pronto em Lajeado, financiamento até 100% Banrisul, fluxo direto e análise de permuta).", "id": "wa14"}, {"d": "2026-11-13", "tipo": "Institucional GO", "p": "Residencial Mont'Santo", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (obra a preço de custo, o m² mais em conta da cidade no verdadeiro alto padrão, entrega em 20 meses). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa15"}, {"d": "2026-11-16", "tipo": "Oportunidade", "p": "Residencial Einstein", "txt": "Oportunidade de trabalho da semana: 20% durante a obra e saldo nas chaves, aceita permuta e Plano Safra. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa16"}, {"d": "2026-11-18", "tipo": "Produto em destaque", "p": "Residencial Fiorello", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (2 apartamentos tipo e a cobertura disponíveis, com até 50% em permuta).", "id": "wa17"}, {"d": "2026-11-19", "tipo": "Institucional GO", "p": "Residencial Amália", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (pagamento direto com a construtora ou financiamento, entrega no início do ano letivo da UFSM). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa18"}, {"d": "2026-11-23", "tipo": "Oportunidade", "p": "Infinity Residence", "txt": "Oportunidade de trabalho da semana: altíssimo padrão, exclusividade e localização única. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa19"}, {"d": "2026-11-25", "tipo": "Produto em destaque", "p": "Primado Residence", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (lotes a 7 minutos do Recanto Maestro, com 95% da infraestrutura pronta).", "id": "wa20"}, {"d": "2026-11-27", "tipo": "Institucional GO", "p": "Moradas do Lago", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (pronto em Lajeado, financiamento até 100% Banrisul, fluxo direto e análise de permuta). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa21"}, {"d": "2026-11-30", "tipo": "Oportunidade", "p": "Residencial Mont'Santo", "txt": "Oportunidade de trabalho da semana: obra a preço de custo, o m² mais em conta da cidade no verdadeiro alto padrão, entrega em 20 meses. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa22"}, {"d": "2026-12-02", "tipo": "Produto em destaque", "p": "Residencial Einstein", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (20% durante a obra e saldo nas chaves, aceita permuta e Plano Safra).", "id": "wa23"}, {"d": "2026-12-04", "tipo": "Institucional GO", "p": "Residencial Fiorello", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (2 apartamentos tipo e a cobertura disponíveis, com até 50% em permuta). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa24"}, {"d": "2026-12-07", "tipo": "Oportunidade", "p": "Residencial Amália", "txt": "Oportunidade de trabalho da semana: pagamento direto com a construtora ou financiamento, entrega no início do ano letivo da UFSM. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa25"}, {"d": "2026-12-09", "tipo": "Produto em destaque", "p": "Infinity Residence", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (altíssimo padrão, exclusividade e localização única).", "id": "wa26"}, {"d": "2026-12-11", "tipo": "Institucional GO", "p": "Primado Residence", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (lotes a 7 minutos do Recanto Maestro, com 95% da infraestrutura pronta). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa27"}, {"d": "2026-12-14", "tipo": "Oportunidade", "p": "Moradas do Lago", "txt": "Oportunidade de trabalho da semana: pronto em Lajeado, financiamento até 100% Banrisul, fluxo direto e análise de permuta. Tem cliente com esse perfil? Chame a GO para receber o material e agendar a visita.", "id": "wa28"}, {"d": "2026-12-16", "tipo": "Produto em destaque", "p": "Residencial Mont'Santo", "txt": "Vídeo ou carrossel do tráfego pago desta semana, com 3 argumentos de venda para o corretor usar com o cliente (obra a preço de custo, o m² mais em conta da cidade no verdadeiro alto padrão, entrega em 20 meses).", "id": "wa29"}, {"d": "2026-12-18", "tipo": "Institucional GO", "p": "Residencial Einstein", "txt": "Disparo para todas as imobiliárias: material institucional da GO Company com a carteira em estoque e destaque para este empreendimento (20% durante a obra e saldo nas chaves, aceita permuta e Plano Safra). Convite para a imobiliária trabalhar o produto com a GO.", "id": "wa30"}], "kit": ["Book do empreendimento", "Tabela e espelho atualizados", "Condição do mês", "Vídeo e fotos para o corretor", "Ficha de cadastro de cliente"]};
+const IST = {
+  ag:[["Planejada","fut"],["Confirmada","req"],["Realizada","ok"],["Remarcada","wip"],["Cancelada","todo"]],
+  wa:[["Programado","fut"],["Enviado","ok"],["Pulado","todo"]],
+  kit:[["Pendente","todo"],["Em produção","wip"],["Pronto","ok"]]
+};
+const IDONE = {ag:"Realizada", wa:"Enviado", kit:"Pronto"};
+const istatus = {};
+const iOf = (id,k) => istatus[id] || IST[k][0][0];
+const iCls = (k,v) => (IST[k].find(x=>x[0]===v)||IST[k][0])[1];
+function iSel(id,k){
+  const v = iOf(id,k);
+  return `<select class="sts ists ${iCls(k,v)}" data-id="${id}" data-k="${k}" aria-label="Status" ${canWrite?"":"disabled"}>${IST[k].map(([l])=>`<option${l===v?" selected":""}>${l}</option>`).join("")}</select>`;
+}
+function iProg(items,k,label,unit){
+  const n = items.length, c = Object.fromEntries(IST[k].map(([l])=>[l,0]));
+  items.forEach(x=>c[iOf(x.id,k)]++);
+  const done = c[IDONE[k]], pct = n?Math.round(done/n*100):0;
+  return `<div class="wkcard" data-iprog="${k}">
+    <div class="wkcard-top"><div><span class="wk-lbl">${esc(label)}</span><b class="pct">${pct}%</b><span class="wk-sub">${esc(unit)}</span></div>
+    <div class="wk-counts">${IST[k].map(([l,cl])=>`<span><i class="c-${cl}"></i><b>${c[l]}</b> ${l.toLowerCase()}</span>`).join("")}</div></div>
+    <div class="wkbar" role="img" aria-label="${done} de ${n}"><i class="a" style="width:${pct}%"></i></div>
+  </div>`;
+}
+const MESN = ["Outubro","Novembro","Dezembro"];
+const monthOf = iso => MESN[pd(iso).getMonth()-9];
+const wkOf = iso => { const d=pd(iso); const m=new Date(d); m.setDate(d.getDate()-((d.getDay()+6)%7)); return m; };
+const isThisWeek = iso => { const m=wkOf(iso), e=new Date(m); e.setDate(m.getDate()+7); return today>=m && today<e; };
+const dayBox = iso => { const d=pd(iso); return `<div class="d">${String(d.getDate()).padStart(2,"0")}<small>${DIAS[d.getDay()]} · ${MABR[monthOf(iso)]}</small></div>`; };
+const projLink = n => D.projs.some(p=>p.n===n) ? `<a href="#${slug(n)}">${esc(n)}</a>` : esc(n);
+
+let imobs = [];      // imobiliárias (db)
+let pessoas = [];    // equipe de campo adicionada (db)
+const atrib = {};    // id da atividade -> responsável
+let agFilter = "Todos";
+const people = () => ["Amanda", ...pessoas.map(p=>p.nome).filter(n=>n && n!=="Amanda"), "A definir"];
+const defQuem = id => id.startsWith("lj") ? "A definir" : "Amanda";
+const quem = id => { const q = atrib[id] || defQuem(id); return people().includes(q) ? q : "A definir"; };
+function whoSel(id){
+  const q = quem(id);
+  if (!canWrite) return `<span class="chip">${esc(q)}</span>`;
+  return `<select class="inp whosel" data-atrib="${id}" aria-label="Responsável">${people().map(n=>`<option${n===q?" selected":""}>${esc(n)}</option>`).join("")}</select>`;
+}
+let imobLoaded = false;
+const FUN = ["Prospectada","Visitada","Ativa","Vendeu"];
+const FUNC = {Prospectada:"fut",Visitada:"req",Ativa:"wip",Vendeu:"ok"};
+const pts = r => (+r.vc||0)*1 + (+r.pr||0)*3 + (+r.vd||0)*10;
+
+pages.push({sec:"im", id:"imob", ch:"Início", t:"Capa", pn:"·", html:()=>`
+  <section class="cover">
+    <p class="eyebrow">Master Plan · GO Company 360°</p>
+    <h1>Imobi&shy;liárias</h1>
+    <p class="sub">Movimentação com o mercado · Outubro a Dezembro de 2026</p>
+    <p class="sub2">Como a GO leva a carteira de estoque às imobiliárias: visitas às obras, apresentações abertas a todo o mercado, grupos de WhatsApp e contato direto com os gestores. Responsável em Santa Maria: Amanda.</p>
+    <a class="btn" href="#imob-estrategia">Abrir a estratégia →</a>
+    <div class="covergrid">${IM.canais.map(c=>`<a href="#imob-estrategia">${esc(c.n)}<small>${c.pres&&c.dig?"Presencial + digital":c.dig?"Digital":"Interno"}</small></a>`).join("")}</div>
+    <span class="bigq" aria-hidden="true">B2B</span>
+  </section>`});
+
+pages.push({sec:"im", id:"imob-estrategia", ch:"A estratégia", t:"Estratégia e canais", html:()=>`
+  ${ph("A estratégia","Estratégia e canais","1")}
+  <p class="lead">Três frentes trabalham juntas: presença diária nos grupos de WhatsApp, relacionamento direto com cada imobiliária e visitas presenciais aos empreendimentos.</p>
+  <div class="facts">
+    <div><b>7</b><span>empreendimentos levados ao mercado</span></div>
+    <div><b>${IM.agenda.filter(a=>a.tipo!=="Sábado pontual").length}</b><span>saídas da equipe até dezembro</span></div>
+    <div><b>${IM.lajeado.length}</b><span>viagens a Lajeado (3 por mês)</span></div>
+    <div><b>${IM.posts.length}</b><span>postagens nos grupos (3 por semana)</span></div>
+  </div>
+  <h2>Empreendimentos e canais</h2>
+  <div class="scroll"><table><thead><tr><th>Empreendimento</th><th>Presencial</th><th>Digital</th><th>Responsável</th><th>Como trabalhar</th></tr></thead><tbody>
+  ${IM.canais.map(c=>`<tr><td class="k">${projLink(c.n)}</td><td><span class="chip ${c.pres?"on":"off"}">${c.pres?"Sim":"Não"}</span></td><td><span class="chip ${c.dig?"on":"off"}">${c.dig?"Sim":"Não"}</span></td><td>${esc(c.quem)}</td><td style="min-width:260px">${E("cn-"+slug(c.n)+".foco", c.foco)}</td></tr>`).join("")}
+  </tbody></table></div>
+  <h2>As três frentes</h2>
+  <div class="two">
+    <div class="kv"><small>1 · Grupos de WhatsApp</small><p>Segunda, quarta e sexta: oportunidade, produto em destaque e disparo institucional da GO para todas as imobiliárias, alternando os empreendimentos. A agenda de visitas é confirmada por ligação e mensagem direta.</p></div>
+    <div class="kv"><small>2 · Contato direto com a imobiliária</small><p>Café de 30 minutos com gestor e corretores, levando o kit dos projetos. Ligação de acompanhamento 7 dias depois.</p></div>
+    <div class="kv"><small>3 · Visitas aos empreendimentos</small><p>Turmas de corretores nas obras e apresentações abertas a todo o mercado (Infinity e Fiorello). Corretor que visita entra na lista de quem recebe condições primeiro.</p></div>
+    <div class="kv"><small>Grupos de imobiliárias</small><p>A: alto padrão e maior volume. B: médio padrão. C: menores, atendidas pelo grupo de WhatsApp e telefone. A classificação entra com a lista de imobiliárias.</p></div>
+  </div>
+  <h2>Condição de cada projeto para o corretor</h2>
+  <ul class="req-list">${IM.canais.filter(c=>c.dig).map(c=>`<li><span><b>${esc(c.n)}</b><small>${E("cn-"+slug(c.n)+".cond", c.cond)}</small></span><span class="st ${c.pres?"ok":"req"}">${c.pres?"Presencial + digital":"Digital"}</span></li>`).join("")}</ul>
+  <div class="note"><p><strong>Sync Floriano fica fora:</strong> obra na planta e sem projeto pronto. O trabalho dele por enquanto é só interno.</p></div>`});
+
+pages.push({sec:"im", id:"imob-ritmo", ch:"A estratégia", t:"Ritmo e semana-padrão", html:()=>{
+  const cnt = (f,m) => IM.agenda.filter(a=>f(a)&&monthOf(a.d)===m).length;
+  const rows = [
+    ["Residencial Mont'Santo", a=>a.p==="Residencial Mont'Santo", "Mutirão em outubro"],
+    ["Residencial Einstein", a=>a.p==="Residencial Einstein", "Com treino de permuta e Plano Safra"],
+    ["Residencial Amália", a=>a.p==="Residencial Amália", "2 turmas em dezembro"],
+    ["Infinity + Fiorello", a=>a.p==="Infinity + Fiorello", "Rota alto padrão, aberta a todo o mercado"],
+    ["Visitas a imobiliárias", a=>a.tipo==="Visita à imobiliária", "2 imobiliárias por saída"],
+    ["Primado (sábado)", a=>a.tipo==="Sábado pontual", "Só com interessados confirmados"],
+  ];
+  const lj = m => IM.lajeado.filter(x=>monthOf(x.d)===m).length;
+  const tot = m => IM.agenda.filter(a=>a.tipo!=="Sábado pontual"&&monthOf(a.d)===m).length;
+  return `${ph("A estratégia","Ritmo e semana-padrão","2")}
+  <p class="lead">Ritmo intermediário: no máximo 3 saídas por semana por pessoa, uma por dia, para sobrar tempo todos os dias para os próprios clientes. A Amanda começa com todas as atividades e pode dividir com a equipe na Agenda.</p>
+  <h2>Saídas por mês</h2>
+  <div class="scroll"><table><thead><tr><th>Ação</th><th class="c">Out</th><th class="c">Nov</th><th class="c">Dez</th><th>Observação</th></tr></thead><tbody>
+  ${rows.map(([n,f,o])=>`<tr><td class="k">${esc(n)}</td>${MESN.map(m=>`<td class="c">${cnt(f,m)}</td>`).join("")}<td class="small">${esc(o)}</td></tr>`).join("")}
+  <tr class="tot"><td>Saídas da equipe de campo (seg a sex)</td>${MESN.map(m=>`<td class="c">${tot(m)}</td>`).join("")}<td></td></tr>
+  <tr><td class="k">Viagens a Lajeado · Moradas do Lago</td>${MESN.map(m=>`<td class="c">${lj(m)}</td>`).join("")}<td class="small">Responsável a definir (não é a Amanda)</td></tr>
+  </tbody></table></div>
+  <div class="note"><p><strong>Outubro é do Mont'Santo:</strong> a Amanda liga para as imobiliárias convidando para o mutirão de visitas à obra. Por isso, em outubro não há cafés nas imobiliárias; eles começam em novembro.</p></div>
+  <h2>Semana-padrão da equipe de campo</h2>
+  <div class="day"><b>Segunda</b><p>Oportunidade de trabalho nos grupos e confirmação das saídas da semana por ligação e mensagem direta.</p></div>
+  <div class="day"><b>Terça a quinta</b><p>Uma saída por dia (visita à obra, apresentação ou café em imobiliária). O restante do dia fica livre para os clientes dela.</p></div>
+  <div class="day"><b>Quarta</b><p>Produto em destaque nos grupos, com o material do tráfego pago da semana.</p></div>
+  <div class="day"><b>Sexta</b><p>Disparo do material institucional da GO para todas as imobiliárias, com destaque para um empreendimento, e atualização do painel.</p></div>
+  <div class="day"><b>Sábado</b><p>Só quando houver corretores parceiros interessados no Primado, com confirmação até quinta.</p></div>
+  <h2>Ênfase de cada mês</h2>
+  <ul class="road">
+    <li><span class="dot${curMonth==="Outubro"?" now":""}">Out</span><div><h3>Apresentar e cadastrar</h3><p>Mutirão do Mont'Santo, primeira rota alto padrão e mapeamento das imobiliárias.</p></div></li>
+    <li><span class="dot${curMonth==="Novembro"?" now":""}">Nov</span><div><h3>Treinar e ativar</h3><p>Cafés nas imobiliárias e treino de condições: permuta, Plano Safra, Banrisul.</p></div></li>
+    <li><span class="dot${curMonth==="Dezembro"?" now":""}">Dez</span><div><h3>Condição de fim de ano</h3><p>Reta final do Amália antes do ano letivo e fechamento do ano com as imobiliárias que mais movimentaram.</p></div></li>
+  </ul>`;
+}});
+
+pages.push({sec:"im", id:"imob-agenda", ch:"Execução", t:"Agenda da equipe", html:()=>{
+  const list = IM.agenda.filter(a=>agFilter==="Todos" || quem(a.id)===agFilter);
+  const allTasks = [...IM.agenda, ...IM.lajeado, ...IM.posts];
+  return `${ph("Execução","Agenda da equipe","")}
+  <p class="lead">Todas as saídas de outubro a dezembro em Santa Maria e região. Cada atividade tem um responsável; a Amanda começa com todas e você pode dividir com outras pessoas da equipe.</p>
+  <h2>Equipe de campo</h2>
+  <div class="team">${people().map(n=>{const c=allTasks.filter(x=>quem(x.id)===n).length; const custom=pessoas.find(p=>p.nome===n);
+    return `<span class="mem"><span class="av">${esc(n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase())}</span><span><b>${esc(n)}</b><small>${c} ${c===1?"atividade":"atividades"}</small></span>${custom&&canWrite?`<button type="button" class="xbtn" data-delpessoa="${custom.id}" aria-label="Remover ${esc(n)}">Remover</button>`:""}</span>`;}).join("")}</div>
+  ${canWrite?`<form class="addf" id="addPessoa" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><label>Nova pessoa na equipe<input class="inp" id="pesNome" required placeholder="Nome do gestor ou corretor"></label><button class="sbtn" type="submit">Adicionar à equipe</button></form>`:""}
+  ${iProg(IM.agenda,"ag","Saídas realizadas","realizadas")}
+  <div class="filters" data-f="quem"><span class="lbl">Responsável</span>${["Todos",...people()].map(n=>`<button type="button" data-v="${esc(n)}" aria-pressed="${n===agFilter}">${esc(n)}</button>`).join("")}</div>
+  ${MESN.map(m=>{const it=list.filter(a=>monthOf(a.d)===m); return it.length?`<h2>${m}</h2><ul class="week">${it.map(a=>`<li${isThisWeek(a.d)?' class="isnow"':""}>${dayBox(a.d)}<div><h3><span class="fmt Carrossel">${esc(a.tipo)}</span>${projLink(a.p)}</h3><p>${E(a.id+".desc", a.desc)}</p><div class="who"><small>Público</small>${E(a.id+".pub", a.pub)}</div><div class="resp"><small>Responsável</small>${whoSel(a.id)}</div>${gcal(`[Imobiliárias] ${a.tipo} · ${a.p}`, a.d, `${V(a.id+".desc", a.desc)}\nPúblico: ${V(a.id+".pub", a.pub)}\nResponsável: ${quem(a.id)}\nStatus: ${iOf(a.id,"ag")}`)}</div>${iSel(a.id,"ag")}</li>`).join("")}</ul>`:""}).join("")}
+  ${list.length?"":`<div class="empty">Nenhuma atividade atribuída a ${esc(agFilter)} ainda. Escolha o responsável em cada atividade.</div>`}`;
+}});
+
+pages.push({sec:"im", id:"imob-lajeado", ch:"Execução", t:"Moradas do Lago · Lajeado", html:()=>`
+  ${ph("Execução","Moradas do Lago · Lajeado","4",E("lj.tag","Apartamentos prontos · financiamento até 100% Banrisul · fluxo direto · análise de permuta"))}
+  <p class="lead">Três viagens por mês a Lajeado, com o dia inteiro dedicado às imobiliárias da cidade e ao empreendimento.</p>
+  <div class="note warn"><p><strong>Responsável:</strong> escolha em cada viagem quem vai a Lajeado. A Amanda não faz essas viagens.</p></div>
+  ${iProg(IM.lajeado,"ag","Viagens realizadas","realizadas")}
+  <h2>Roteiro do dia</h2>
+  <div class="day"><b>Manhã</b><p>Visita a 3 ou 4 imobiliárias de Lajeado: gestor e corretores, kit do Moradas do Lago e condição do mês.</p></div>
+  <div class="day"><b>Almoço</b><p>Com um gestor ou corretor parceiro, quando possível.</p></div>
+  <div class="day"><b>Tarde</b><p>Visita ao empreendimento com corretores e atendimento de clientes agendados.</p></div>
+  <div class="day"><b>Fim do dia</b><p>Postagem no grupo de corretores de Lajeado e atualização do painel.</p></div>
+  <h2>Datas sugeridas</h2>
+  <ul class="week">${IM.lajeado.map((x,i)=>`<li${isThisWeek(x.d)?' class="isnow"':""}>${dayBox(x.d)}<div><h3>Viagem ${i+1} de ${IM.lajeado.length}</h3><p>Imobiliárias de Lajeado pela manhã e Moradas do Lago à tarde.</p><div class="resp"><small>Responsável</small>${whoSel(x.id)}</div>${gcal(`[Imobiliárias] Viagem a Lajeado · Moradas do Lago (${i+1}/${IM.lajeado.length})`, x.d, `Manhã: 3 ou 4 imobiliárias de Lajeado.\nTarde: visita ao Moradas do Lago com corretores.\nResponsável: ${quem(x.id)}`, "Lajeado, RS")}</div>${iSel(x.id,"ag")}</li>`).join("")}</ul>`});
+
+pages.push({sec:"im", id:"imob-whatsapp", ch:"Execução", t:"Grupos de WhatsApp", html:()=>`
+  ${ph("Execução","Grupos de WhatsApp","5")}
+  <p class="lead">Segunda, quarta e sexta são dias de movimentar os grupos. Cada dia traz um empreendimento diferente, apresentado como oportunidade de trabalho para o corretor. A agenda de visitas é confirmada por ligação e mensagem direta, fora dos grupos.</p>
+  ${iProg(IM.posts,"wa","Postagens enviadas","enviadas")}
+  <div class="two">
+    <div class="kv"><small>Segunda · Oportunidade</small><p>A condição de um empreendimento, como oportunidade de trabalho da semana, com chamada para o corretor falar com a GO.</p></div>
+    <div class="kv"><small>Quarta · Produto em destaque</small><p>Vídeo ou carrossel do tráfego pago, com 3 argumentos de venda para o corretor usar com o cliente.</p></div>
+    <div class="kv"><small>Sexta · Institucional GO</small><p>Disparo para todas as imobiliárias: material institucional da GO com a carteira e destaque para um empreendimento.</p></div>
+    <div class="kv"><small>Rodízio</small><p>Os empreendimentos se alternam a cada postagem, então cada dia apresenta um produto diferente. O Infinity nunca entra com preço. Moradas do Lago também vai para os grupos de Lajeado.</p></div>
+  </div>
+  ${MESN.map(m=>`<h2>${m}</h2><ul class="week">${IM.posts.filter(x=>monthOf(x.d)===m).map(x=>`<li${isThisWeek(x.d)?' class="isnow"':""}>${dayBox(x.d)}<div><h3><span class="fmt ${x.tipo==="Produto em destaque"?"Vídeo":x.tipo==="Institucional GO"?"Estático":"Carrossel"}">${x.tipo}</span>${projLink(x.p)}</h3><p>${E(x.id+".txt", x.txt)}</p><div class="resp"><small>Responsável</small>${whoSel(x.id)}</div>${gcal(`[WhatsApp] ${x.tipo} · ${x.p}`, x.d, `${V(x.id+".txt", x.txt)}\nResponsável: ${quem(x.id)}`)}</div>${iSel(x.id,"wa")}</li>`).join("")}</ul>`).join("")}`});
+
+pages.push({sec:"im", id:"imob-lista", ch:"Imobiliárias", t:"Imobiliárias parceiras", html:()=>imobListHTML()});
+function imobListHTML(){
+  const city = [...new Set(imobs.map(r=>r.cidade).filter(Boolean))];
+  return `${ph("Imobiliárias","Imobiliárias parceiras","6")}
+  <p class="lead">A base de imobiliárias com gestor, número de corretores, grupo e etapa. Quem fez o contato atualiza aqui; toda a equipe acompanha.</p>
+  <div class="facts">${FUN.map(s=>`<div><b>${imobs.filter(r=>(r.status||"Prospectada")===s).length}</b><span>${s.toLowerCase()}${s==="Vendeu"?"":"s"}</span></div>`).join("")}</div>
+  <p class="small" style="margin-top:-14px">${imobs.length} ${imobs.length===1?"imobiliária":"imobiliárias"} na base · <strong>${imobs.reduce((a,r)=>a+(+r.nc||0),0)}</strong> corretores no total.</p>
+  ${canWrite?`<h2>Adicionar imobiliária</h2>
+  <form class="addf" id="addImob">
+    <label>Imobiliária<input class="inp" id="fNome" required placeholder="Nome da imobiliária"></label>
+    <label>Cidade<select class="inp" id="fCid"><option>Santa Maria</option><option>Lajeado</option><option>Outra</option></select></label>
+    <label>Gestor<input class="inp" id="fGes" placeholder="Nome do gestor"></label>
+    <label>Contato<input class="inp" id="fCon" placeholder="Telefone ou e-mail"></label>
+    <label>Nº de corretores<input class="inp" id="fNc" type="number" min="0" placeholder="0"></label>
+    <label>Grupo<select class="inp" id="fGru"><option>A</option><option selected>B</option><option>C</option></select></label>
+    <button class="sbtn" type="submit">Adicionar</button>
+  </form>`:""}
+  ${!imobLoaded && canWrite ? `<div class="empty">Carregando a lista…</div>` :
+    imobs.length===0 ? `<div class="empty">Nenhuma imobiliária cadastrada ainda. A lista com gestores entra aqui assim que for enviada.</div>` :
+  `<div class="scroll"><table class="imt"><thead><tr><th>Imobiliária</th><th>Cidade</th><th>Gestor e contato</th><th class="c">Corretores</th><th>Grupo</th><th>Etapa</th><th>Próxima ação</th><th class="c">Visitas c/ cliente</th><th class="c">Propostas</th><th class="c">Vendas</th><th></th></tr></thead><tbody>
+  ${imobs.slice().sort((a,b)=>(a.grupo||"Z").localeCompare(b.grupo||"Z")||String(a.nome).localeCompare(String(b.nome))).map(r=>`<tr data-r="${esc(r.id)}">
+    <td class="nm k">${esc(r.nome)}</td><td>${esc(r.cidade)}</td><td class="small">${esc(r.gestor)}<br>${esc(r.contato)}</td>
+    <td class="c"><input class="inp n" type="number" min="0" data-fld="nc" value="${+r.nc||0}" ${canWrite?"":"disabled"} aria-label="Número de corretores"></td>
+    <td><select class="inp" data-fld="grupo" ${canWrite?"":"disabled"}>${["A","B","C"].map(g=>`<option${g===r.grupo?" selected":""}>${g}</option>`).join("")}</select></td>
+    <td><select class="sts ${FUNC[r.status||"Prospectada"]}" data-fld="status" ${canWrite?"":"disabled"}>${FUN.map(s=>`<option${s===(r.status||"Prospectada")?" selected":""}>${s}</option>`).join("")}</select></td>
+    <td><input class="inp" data-fld="proxima" value="${esc(r.proxima)}" placeholder="Ex.: ligar dia 20" ${canWrite?"":"disabled"}></td>
+    ${["vc","pr","vd"].map(f=>`<td class="c"><input class="inp n" type="number" min="0" data-fld="${f}" value="${+r[f]||0}" ${canWrite?"":"disabled"}></td>`).join("")}
+    <td>${canWrite?`<button type="button" class="xbtn" data-del="${esc(r.id)}">Excluir</button>`:""}</td></tr>`).join("")}
+  </tbody></table></div>`}
+  <p class="small">Etapas: prospectada (ainda sem contato), visitada (recebeu a GO ou visitou uma obra), ativa (já trouxe cliente) e vendeu.</p>`;
+}
+
+pages.push({sec:"im", id:"imob-indicadores", ch:"Imobiliárias", t:"Indicadores e ranking", html:()=>{
+  const n = imobs.length, by = s => imobs.filter(r=>(r.status||"Prospectada")===s).length;
+  const sum = f => imobs.reduce((a,r)=>a+(+r[f]||0),0);
+  const done = (arr,k) => arr.filter(x=>iOf(x.id,k)===IDONE[k]).length;
+  const rank = imobs.filter(r=>pts(r)>0).sort((a,b)=>pts(b)-pts(a)).slice(0,10);
+  return `${ph("Imobiliárias","Indicadores e ranking","7")}
+  <p class="lead">O resultado da movimentação: quantas imobiliárias saíram do papel, quantos clientes chegaram e quem mais vendeu.</p>
+  <div class="facts">
+    <div><b>${n}</b><span>imobiliárias na base</span></div>
+    <div><b>${sum("nc")}</b><span>corretores nessas imobiliárias</span></div>
+    <div><b>${sum("pr")}</b><span>propostas</span></div>
+    <div><b>${sum("vd")}</b><span>vendas</span></div>
+  </div>
+  <h2>Funil das imobiliárias</h2>
+  ${n?`<div class="bars">${FUN.map(s=>`<div class="bar"><span>${s}</span><span class="tr"><i style="width:${n?by(s)/n*100:0}%"></i></span><b>${by(s)}</b></div>`).join("")}</div>`:`<div class="empty">O funil aparece quando a lista de imobiliárias for cadastrada.</div>`}
+  <h2>Execução do plano</h2>
+  <div class="bars">
+    <div class="bar"><span>Saídas Amanda</span><span class="tr"><i style="width:${done(IM.agenda,"ag")/IM.agenda.length*100}%"></i></span><b>${done(IM.agenda,"ag")}/${IM.agenda.length}</b></div>
+    <div class="bar"><span>Viagens Lajeado</span><span class="tr"><i style="width:${done(IM.lajeado,"ag")/IM.lajeado.length*100}%"></i></span><b>${done(IM.lajeado,"ag")}/${IM.lajeado.length}</b></div>
+    <div class="bar"><span>Postagens</span><span class="tr"><i style="width:${done(IM.posts,"wa")/IM.posts.length*100}%"></i></span><b>${done(IM.posts,"wa")}/${IM.posts.length}</b></div>
+  </div>
+  <h2>Ranking das imobiliárias</h2>
+  ${rank.length?`<div class="scroll"><table><thead><tr><th class="c">#</th><th>Imobiliária</th><th>Cidade</th><th class="c">Visitas c/ cliente</th><th class="c">Propostas</th><th class="c">Vendas</th><th class="c">Pontos</th></tr></thead><tbody>
+  ${rank.map((r,i)=>`<tr><td class="c"><b>${i+1}</b></td><td class="k">${esc(r.nome)}</td><td>${esc(r.cidade)}</td><td class="c">${+r.vc||0}</td><td class="c">${+r.pr||0}</td><td class="c">${+r.vd||0}</td><td class="c"><b>${pts(r)}</b></td></tr>`).join("")}
+  </tbody></table></div>`:`<div class="empty">O ranking aparece quando as imobiliárias começarem a registrar visitas com cliente, propostas ou vendas.</div>`}
+  <p class="small">Pontuação de referência: visita com cliente = 1, proposta = 3, venda = 10. A mesma regra serve de base para a premiação, quando ela for ativada.</p>`;
+}});
+
+pages.push({sec:"im", id:"imob-kit", ch:"Apoio", t:"Kit do corretor", html:()=>{
+  const items = IM.canais.filter(c=>c.dig).flatMap(c=>IM.kit.map((k,i)=>({id:`kit-${slug(c.n)}-${i}`})));
+  return `${ph("Apoio","Kit do corretor","8")}
+  <p class="lead">O material que a Amanda leva em cada visita e envia nos grupos. Marque quando cada item estiver pronto.</p>
+  ${iProg(items,"kit","Kits prontos","prontos")}
+  ${IM.canais.filter(c=>c.dig).map(c=>`<h2>${esc(c.n)}</h2><p class="small" style="margin-top:-6px">${E("cn-"+slug(c.n)+".cond", c.cond)} ${D.projs.some(p=>p.n===c.n)?`· <a href="#${slug(c.n)}">Ver criativos do tráfego</a>`:""}</p>
+    <ul class="req-list">${IM.kit.map((k,i)=>`<li><span><b>${esc(k)}</b></span>${iSel(`kit-${slug(c.n)}-${i}`,"kit")}</li>`).join("")}</ul>`).join("")}`;
+}});
+
+pages.push({sec:"im", id:"imob-premiacao", ch:"Apoio", t:"Premiação (bônus)", html:()=>`
+  ${ph("Apoio","Premiação (bônus)","9")}
+  <p class="lead">A premiação é um bônus para o fim do trimestre. A estrutura fica pronta aqui e só entra em vigor depois de aprovada com as construtoras.</p>
+  <div class="note"><p><strong>Status:</strong> <span class="st fut">A definir</span> Valores, prêmios e regulamento ainda precisam de aprovação.</p></div>
+  <h2>Proposta</h2>
+  <div class="two">
+    <div class="kv"><small>Quem participa</small><p>Corretores e imobiliárias parceiras de todos os empreendimentos levados ao mercado (Sync Floriano fica fora).</p></div>
+    <div class="kv"><small>Período</small><p>Outubro a dezembro de 2026, com apuração na segunda quinzena de dezembro.</p></div>
+    <div class="kv"><small>Como pontua</small><p>Visita com cliente = 1 ponto. Proposta = 3 pontos. Venda = 10 pontos. Os pontos já aparecem no ranking.</p></div>
+    <div class="kv"><small>Prêmios</small><p>A definir com as construtoras: bônus por venda, prêmio para o corretor destaque e para a imobiliária destaque.</p></div>
+  </div>
+  <h2>Antes de ativar</h2>
+  <ul class="req-list">
+    <li><span><b>Aprovação das construtoras</b><small>Quem paga cada prêmio e se é por projeto ou para a carteira toda.</small></span><span class="st req">Pendente</span></li>
+    <li><span><b>Regulamento</b><small>Regras de validação de visita, proposta e venda; desempate; prazo de pagamento.</small></span><span class="st req">Pendente</span></li>
+    <li><span><b>Revisão jurídica</b><small>Formato da campanha e comunicação para os corretores.</small></span><span class="st req">Pendente</span></li>
+    <li><span><b>Lançamento nos grupos</b><small>Anúncio da campanha nos grupos de WhatsApp e nos cafés das imobiliárias.</small></span><span class="st fut">Depois</span></li>
+  </ul>`});
+
+/* ---------- shell ---------- */
+const main = document.getElementById("main"), toc = document.getElementById("toc");
+const secPages = s => pages.filter(p=>p.sec===s);
+function buildToc(sec){
+  let lastCh = "";
+  toc.innerHTML = secPages(sec).map((pg,i)=>{
+    let h = ""; if (pg.ch!==lastCh){ h += `<li class="ch">${pg.ch}</li>`; lastCh = pg.ch; }
+    return h + `<li><a href="#${pg.id}"><span class="pn">${pg.pn || i}</span><span>${esc(pg.t)}</span></a></li>`;
+  }).join("");
+}
+main.innerHTML = pages.map(pg=>`<article class="page" data-id="${pg.id}"></article>`).join("");
+
+function bindPage(id, el){
+  if (id==="calendario"){
+    el.querySelectorAll(".filters").forEach(g=>g.addEventListener("click",e=>{
+      const b = e.target.closest("button"); if(!b) return;
+      g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed", x===b));
+      flt[g.dataset.f] = b.dataset.v; renderCal();
+    }));
+    renderCal();
+  }
+  if (id==="novo-empreendimento"){
+    const f = el.querySelector("#addProj");
+    f?.addEventListener("submit", async e=>{
+      e.preventDefault(); if (!db) return;
+      const nome = f.querySelector("#pNome").value.trim(); if (!nome) return;
+      const btn = f.querySelector("button"); btn.disabled = true;
+      try { const ref = await db.collection("projetos").add({nome, dia:f.querySelector("#pDia").value, loc:f.querySelector("#pLoc").value.trim(), criado:Date.now()}); f.reset(); toast(`${nome} criado com 17 peças. Abra a página dele para preencher.`); if (ref?.id) setTimeout(()=>{ location.hash = "#emp-"+ref.id; }, 300); }
+      catch(_) { toast("Não foi possível criar o empreendimento."); }
+      btn.disabled = false;
+    });
+  }
+  if (id==="imob-agenda"){
+    el.querySelector('.filters[data-f="quem"]')?.addEventListener("click", e=>{
+      const b = e.target.closest("button"); if (!b) return; agFilter = b.dataset.v; refreshStatusUI();
+    });
+    const f = el.querySelector("#addPessoa");
+    f?.addEventListener("submit", async e=>{
+      e.preventDefault(); if (!db) return;
+      const nome = f.querySelector("#pesNome").value.trim(); if (!nome || people().includes(nome)) return;
+      try { await db.collection("pessoas").add({nome, criado:Date.now()}); toast(`${nome} entrou na equipe. Escolha as atividades dele(a) no campo Responsável.`); }
+      catch(_) { toast("Não foi possível adicionar a pessoa."); }
+    });
+  }
+  if (id==="imob-lista"){
+    const f = el.querySelector("#addImob");
+    f?.addEventListener("submit", async e=>{
+      e.preventDefault(); if (!db) return;
+      const nome = f.querySelector("#fNome").value.trim(); if (!nome) return;
+      const btn = f.querySelector("button"); btn.disabled = true;
+      try { await db.collection("imobiliarias").add({nome, cidade:f.querySelector("#fCid").value, gestor:f.querySelector("#fGes").value.trim(), contato:f.querySelector("#fCon").value.trim(), grupo:f.querySelector("#fGru").value, nc:Math.max(0,parseInt(f.querySelector("#fNc").value,10)||0), status:"Prospectada", proxima:"", vc:0, pr:0, vd:0, criado:Date.now()}); f.reset(); }
+      catch(_) { btn.textContent = "Não foi possível salvar"; }
+      btn.disabled = false;
+    });
+  }
+}
+function renderPage(id){
+  const pg = pages.find(p=>p.id===id), list = secPages(pg.sec), i = list.indexOf(pg);
+  const el = main.querySelector(`[data-id="${id}"]`);
+  const prev = list[i-1], next = list[i+1];
+  CURNUM = String(i);
+  el.innerHTML = pg.html() + `<nav class="pager">${prev?`<a href="#${prev.id}"><small>← Anterior</small><b>${esc(prev.t)}</b></a>`:""}${next?`<a class="nx" href="#${next.id}"><small>Próximo →</small><b>${esc(next.t)}</b></a>`:""}</nav>`;
+  bindPage(id, el);
+}
+let cur = null, curSec = null;
+function go(){
+  let id = location.hash.slice(1);
+  if (!pages.some(p=>p.id===id)) id = "inicio";
+  cur = id;
+  const pg = pages.find(p=>p.id===id);
+  if (pg.sec!==curSec){
+    curSec = pg.sec; buildToc(curSec);
+    document.getElementById("segTr").setAttribute("aria-current", curSec==="tr");
+    document.getElementById("segIm").setAttribute("aria-current", curSec==="im");
+    document.getElementById("docT").textContent = curSec==="tr" ? "Tráfego Pago" : "Imobiliárias";
+    document.getElementById("docS").textContent = curSec==="tr" ? "Carteira de estoque · Out a Dez/2026" : "Movimentação com o mercado · Out a Dez/2026";
+  }
+  main.querySelectorAll(".page").forEach(p=>{ p.classList.toggle("on", p.dataset.id===id); if(p.dataset.id!==id) p.innerHTML=""; });
+  renderPage(id);
+  toc.querySelectorAll("a").forEach(a=>{ if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  const list = secPages(curSec), i = list.indexOf(pg);
+  document.getElementById("progi").style.width = (i/(list.length-1)*100)+"%";
+  document.getElementById("mcur").textContent = pg.t;
+  closeMenu(); window.scrollTo(0,0);
+}
+const side = document.getElementById("side"), scrim = document.getElementById("scrim"), mopen = document.getElementById("mopen");
+function closeMenu(){ side.classList.remove("open"); scrim.classList.remove("on"); mopen.setAttribute("aria-expanded","false"); }
+mopen.addEventListener("click",()=>{ side.classList.add("open"); scrim.classList.add("on"); mopen.setAttribute("aria-expanded","true"); });
+scrim.addEventListener("click", closeMenu);
+window.addEventListener("hashchange", go);
+
+/* ---------- dados compartilhados ---------- */
+let pending = false;
+function refreshStatusUI(){
+  const a = document.activeElement;
+  if (a && main.contains(a) && (a.matches("input, textarea") || a.isContentEditable)) { pending = true; return; } // não interrompe digitação
+  pending = false;
+  const y = window.scrollY;
+  if (cur==="calendario"){
+    const el = main.querySelector('[data-id="calendario"] [data-prog]');
+    if (el) el.outerHTML = progressCard(D.rows,"Trimestre · todos os empreendimentos");
+    renderCal();
+  } else renderPage(cur);
+  window.scrollTo(0,y);
+}
+async function saveEd(el){
+  if (!db) return;
+  const k = el.dataset.key, d = el.dataset.def;
+  const v = el.textContent.replace(/\u00a0/g," ").trim();
+  if (v === V(k,d)) return;
+  try {
+    if (!v || v === d){ delete TX[k]; await db.collection("txt").doc(k).delete(); }
+    else { TX[k] = v; await db.collection("txt").doc(k).set({v}); }
+    const r = D.rows.find(x=>k.startsWith(x.id+"."));
+    toast(!v || v===d ? "Texto original restaurado em todo o painel."
+      : r ? `Salvo. Atualizado no Calendário completo e na página do ${D.projs[r.p].n}.`
+      : "Salvo. Atualizado em todo o painel.");
+  } catch(_) { el.classList.add("err"); toast("Não foi possível salvar. Tente de novo."); }
+}
+let toastT;
+function toast(msg){
+  let t = document.getElementById("toast");
+  if (!t){ t = document.createElement("div"); t.id = "toast"; t.className = "toast"; t.setAttribute("role","status"); document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("on"), 2800);
+}
+main.addEventListener("keydown", e=>{
+  const el = e.target.closest?.(".ed"); if (!el) return;
+  if (e.key==="Enter" && !e.shiftKey){ e.preventDefault(); el.blur(); }
+  if (e.key==="Escape"){ el.textContent = V(el.dataset.key, el.dataset.def); el.blur(); }
+});
+main.addEventListener("focusout", e=>{ const el = e.target.closest?.(".ed"); if (el) saveEd(el); }, true);
+main.addEventListener("focusout", ()=>{ if (pending) setTimeout(()=>{ if (pending) refreshStatusUI(); }, 0); });
+main.addEventListener("change", async e=>{
+  if (!db) return;
+  const s = e.target.closest("select.sts:not(.ists):not([data-fld])");
+  if (s){
+    const id = s.dataset.id, v = s.value, old = stOf(id);
+    status[id] = v; s.className = "sts " + STC[v];
+    try { await db.collection("status").doc(id).set({s:v}); const r = D.rows.find(x=>x.id===id); toast(`Status "${v}" salvo${r?` · ${D.projs[r.p].n}`:""}.`); }
+    catch(err){ status[id] = old; toast("Não foi possível salvar o status."); }
+    return refreshStatusUI();
+  }
+  const is = e.target.closest("select.ists");
+  if (is){
+    const id = is.dataset.id, k = is.dataset.k, v = is.value, old = istatus[id];
+    istatus[id] = v; is.className = "sts ists " + iCls(k,v);
+    try { await db.collection("imobst").doc(id).set({s:v}); }
+    catch(err){ if (old) istatus[id] = old; else delete istatus[id]; }
+    return refreshStatusUI();
+  }
+  const ws = e.target.closest("[data-atrib]");
+  if (ws){
+    const id = ws.dataset.atrib, v = ws.value; atrib[id] = v;
+    try { await db.collection("atrib").doc(id).set({quem:v}); toast(`Atividade atribuída a ${v}.`); } catch(_) { toast("Não foi possível salvar o responsável."); }
+    return refreshStatusUI();
+  }
+  const fld = e.target.closest("[data-fld]");
+  if (fld){
+    const rid = fld.closest("tr").dataset.r, f = fld.dataset.fld;
+    let v = fld.value; if (["vc","pr","vd","nc"].includes(f)) v = Math.max(0, parseInt(v,10)||0);
+    if (f==="status") fld.className = "sts " + FUNC[v];
+    try { await db.collection("imobiliarias").doc(rid).update({[f]:v}); } catch(_) { refreshStatusUI(); }
+  }
+});
+main.addEventListener("click", async e=>{
+  const rs = e.target.closest("[data-reset]");
+  if (rs && db){ const id = rs.dataset.reset; for (const k of [id+".t", id+".c"]){ if (k in TX){ delete TX[k]; try { await db.collection("txt").doc(k).delete(); } catch(_) {} } } refreshStatusUI(); return; }
+  const dp = e.target.closest("[data-delproj],[data-delpessoa]");
+  if (dp && db){
+    if (!dp.classList.contains("arm")){ dp.classList.add("arm"); const t = dp.textContent; dp.textContent = "Confirmar remoção"; setTimeout(()=>{ dp.classList.remove("arm"); dp.textContent = t; }, 3500); return; }
+    try {
+      if (dp.dataset.delproj) { await db.collection("projetos").doc(dp.dataset.delproj).delete(); toast("Empreendimento removido."); }
+      else { await db.collection("pessoas").doc(dp.dataset.delpessoa).delete(); toast("Pessoa removida da equipe. As atividades dela voltam para 'A definir'."); }
+    } catch(_) {}
+    return;
+  }
+  const b = e.target.closest("[data-del]"); if (!b || !db) return;
+  if (!b.classList.contains("arm")){ b.classList.add("arm"); b.textContent = "Confirmar"; setTimeout(()=>{ b.classList.remove("arm"); b.textContent = "Excluir"; }, 3500); return; }
+  try { await db.collection("imobiliarias").doc(b.dataset.del).delete(); } catch(_) {}
+});
+go();
+/* Armazenamento local: usado quando o banco compartilhado não está disponível
+   (ex.: arquivo HTML aberto fora do Claude). Salva neste navegador. */
+function localDb(){
+  const mem = {}, subs = {};
+  const load = n => { if (mem[n]) return mem[n]; let saved = null; try { saved = localStorage.getItem("gomp:"+n); } catch(_) {} try { mem[n] = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(SEED[n] || {})); } catch(_) { mem[n] = {}; } return mem[n]; };
+  const persist = n => { try { localStorage.setItem("gomp:"+n, JSON.stringify(mem[n])); } catch(_) {} };
+  const emit = n => { const data = load(n); const snap = {docs:Object.keys(data).map(id=>({id, data:()=>data[id]}))}; (subs[n]||[]).forEach(cb=>cb(snap)); };
+  const collection = n => ({
+    limit(){ return this; },
+    onSnapshot(cb){ (subs[n] = subs[n]||[]).push(cb); setTimeout(()=>emit(n),0); return ()=>{}; },
+    doc(id){ return {
+      async set(v){ load(n)[id] = {...v}; persist(n); emit(n); },
+      async update(v){ const d = load(n); d[id] = {...(d[id]||{}), ...v}; persist(n); emit(n); },
+      async delete(){ delete load(n)[id]; persist(n); emit(n); }
+    }; },
+    async add(v){ const id = "l"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); load(n)[id] = {...v}; persist(n); emit(n); return {id}; }
+  });
+  const snapshot = () => Object.fromEntries(["status","txt","imobst","imobiliarias","projetos","pessoas","atrib"].map(n=>[n, load(n)]));
+  return {collection, local:true, snapshot};
+}
+(async ()=>{
+  try {
+    db = window.claude?.use ? await window.claude.use("db") : null;
+    if (!db) db = localDb();
+    canWrite = true;
+    const hint = document.getElementById("edHint");
+    if (db.local){
+      hint.textContent = "Status e textos podem ser editados aqui. As alterações ficam salvas neste navegador; para guardar ou enviar, use o botão abaixo.";
+      const xb = document.getElementById("exportBtn"); xb.hidden = false;
+      xb.addEventListener("click", ()=>{
+        const M1 = "/*SE"+"ED*/", M2 = "/*END"+"SEED*/";
+        const a = PAGE_SRC.indexOf(M1), b = PAGE_SRC.indexOf(M2, a);
+        if (a<0 || b<0) return toast("Não foi possível gerar o arquivo.");
+        const html = PAGE_SRC.slice(0, a+M1.length) + JSON.stringify(db.snapshot()).replace(/<\//g,"<\\/") + PAGE_SRC.slice(b);
+        const url = URL.createObjectURL(new Blob([html], {type:"text/html"}));
+        const link = document.createElement("a"); link.href = url; link.download = "MasterPlan_GO.html";
+        document.body.appendChild(link); link.click(); link.remove();
+        setTimeout(()=>URL.revokeObjectURL(url), 4000);
+        toast("Arquivo MasterPlan_GO.html salvo com todas as alterações.");
+      });
+    }
+    refreshStatusUI();
+    db.collection("status").limit(1000).onSnapshot(snap=>{
+      for (const k in status) delete status[k];
+      snap.docs.forEach(d=>{ const v = d.data()?.s; if (STC[v]) status[d.id] = v; });
+      refreshStatusUI();
+    }, ()=>{});
+    document.getElementById("edHint").hidden = false;
+    db.collection("txt").limit(1000).onSnapshot(snap=>{
+      for (const k in TX) delete TX[k];
+      snap.docs.forEach(d=>{ const v = d.data()?.v; if (typeof v==="string") TX[d.id] = v; });
+      refreshStatusUI();
+    }, ()=>{});
+    db.collection("projetos").limit(200).onSnapshot(snap=>{
+      if (syncProjects(snap.docs.map(d=>({id:d.id, ...(d.data()||{})})).filter(x=>x.nome))) refreshStatusUI();
+    }, ()=>{});
+    db.collection("pessoas").limit(200).onSnapshot(snap=>{
+      pessoas = snap.docs.map(d=>({id:d.id, ...(d.data()||{})})).filter(x=>x.nome);
+      refreshStatusUI();
+    }, ()=>{});
+    db.collection("atrib").limit(1000).onSnapshot(snap=>{
+      for (const k in atrib) delete atrib[k];
+      snap.docs.forEach(d=>{ const v = d.data()?.quem; if (typeof v==="string") atrib[d.id] = v; });
+      refreshStatusUI();
+    }, ()=>{});
+    db.collection("imobst").limit(1000).onSnapshot(snap=>{
+      for (const k in istatus) delete istatus[k];
+      snap.docs.forEach(d=>{ const v = d.data()?.s; if (typeof v==="string") istatus[d.id] = v; });
+      refreshStatusUI();
+    }, ()=>{});
+    db.collection("imobiliarias").limit(1000).onSnapshot(snap=>{
+      imobs = snap.docs.map(d=>({id:d.id, ...(d.data()||{})})).filter(r=>r.nome);
+      imobLoaded = true;
+      refreshStatusUI();
+    }, ()=>{ imobLoaded = true; refreshStatusUI(); });
+  } catch(_) {}
+})();
+</script>
+
+</body>
+</html>
